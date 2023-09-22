@@ -12,3 +12,7 @@ module Domain =
         NumberOfDocuments: uint32
         RunTime: DateTime
     }
+
+    type WorkflowStat = {
+        Id: Guid
+    }

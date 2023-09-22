@@ -5,6 +5,7 @@
   <ItemGroup>
     <Compile Include="Database/Models.fs" />
     <Compile Include="Database/Database.fs" />
+    <Compile Include="Service/BatchStatsService.fs" />
     <Compile Include="Controllers/BatchAnalyticsController.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
