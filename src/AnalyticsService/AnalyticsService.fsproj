@@ -4,13 +4,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Database/Models.fs" />
-    <Compile Include="Database/Database.fs" />
+    <Compile Include="Database/Migrations/*.fs" />
+    <Compile Include="Database/Migrate.fs" />
     <Compile Include="Service/BatchStatsService.fs" />
     <Compile Include="Controllers/BatchAnalyticsController.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Dapper.FSharp" Version="4.7.0" />
+    <PackageReference Include="FluentMigrator" Version="3.3.2" />
+    <PackageReference Include="FluentMigrator.Runner" Version="3.3.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 </Project>
