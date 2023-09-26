@@ -1,0 +1,13 @@
+@hostname=localhost
+@port=8080
+
+POST http://localhost:5116/batch-analytics HTTP/1.1
+Content-Type: application/json
+
+{
+  "start_date": "2023-09-26T13:39:52.695Z",
+  "end_date": "2023-09-27T13:39:52.695Z",
+  "number_of_documents": 5,
+  "status": 0,
+  "workflow_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+}

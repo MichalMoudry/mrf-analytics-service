@@ -4,8 +4,8 @@ namespace AnalyticsService
 open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
-open AnalyticsService.Database.Migrations
-open FluentMigrator.Runner
+open FluentValidation
+open AnalyticsService.Transport.Validation
 
 module Program =
     let exitCode = 0
@@ -20,28 +20,23 @@ module Program =
             match builder.Environment.IsDevelopment() with
             | true -> builder.Configuration["DbConnection"]
             | false -> System.Environment.GetEnvironmentVariable("DB_CONN")
+        printfn "Connecting to a database on '%s'" connectionString
 
         builder.Services.AddControllers()
         builder.Services.AddSwaggerGen()
-        builder.Environment.IsDevelopment()
-        
+        builder.Services.AddHealthChecks()
         builder.Services
-            .AddFluentMigratorCore()
-            .ConfigureRunner(fun i ->
-                i.AddPostgres()
-                    .WithGlobalConnectionString(connectionString)
-                    .ScanIn((typeof<InitMigration>).Assembly).For.Migrations()
-                |> ignore
-            )
+            .AddValidatorsFromAssemblyContaining<BatchStatRequestValidator>()
+
 
         let app = builder.Build()
 
-        app.UseHttpsRedirection()
+        //app.UseHttpsRedirection()
         app.UseSwagger().UseSwaggerUI()
-
+        app.MapSubscribeHandler()
         app.UseAuthorization()
         app.MapControllers()
+        app.UseHealthChecks("/health")
 
         app.Run()
-
         exitCode
