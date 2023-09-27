@@ -4,7 +4,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Database/Models.fs" />
-    <Compile Include="Service/*.fs" />
+    <Compile Include="Service/Api/*.fs" />
+    <Compile Include="Service/Handlers/*.fs" />
     <Compile Include="Transport/Contracts/*.fs" />
     <Compile Include="Transport/Validation/*.fs" />
     <Compile Include="Transport/Controllers/*.fs" />
@@ -14,6 +15,7 @@
     <PackageReference Include="Dapper.FSharp" Version="4.7.0" />
     <PackageReference Include="Dapr.AspNetCore" Version="1.11.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Update="FSharp.Core" Version="7.0.400" />

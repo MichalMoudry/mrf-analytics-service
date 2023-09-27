@@ -21,3 +21,15 @@ type BatchStatRequest = {
     [<JsonPropertyName("workflow_id")>]
     WorkflowId: Guid
 }
+
+/// A record representing a cloud event from MQ.
+type CloudEvent<'T> = {
+    [<JsonPropertyName("id")>]
+    Id: string
+
+    [<JsonPropertyName("data")>]
+    Data: 'T
+
+    [<JsonPropertyName("source")>]
+    Source: string
+}

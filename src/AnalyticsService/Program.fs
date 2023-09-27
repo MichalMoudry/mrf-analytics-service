@@ -5,6 +5,7 @@ open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open FluentValidation
+open AnalyticsService.Service.Api.Requests
 open AnalyticsService.Transport.Validation
 
 module Program =
@@ -20,11 +21,15 @@ module Program =
             match builder.Environment.IsDevelopment() with
             | true -> builder.Configuration["DbConnection"]
             | false -> System.Environment.GetEnvironmentVariable("DB_CONN")
-        printfn "Connecting to a database on '%s'" connectionString
+        printfn $"Connecting to a database on '{connectionString}'"
 
         builder.Services.AddControllers()
         builder.Services.AddSwaggerGen()
         builder.Services.AddHealthChecks()
+        builder.Services.AddMediatR(fun cfg ->
+            cfg.RegisterServicesFromAssemblyContaining<GetGenericStatsForBatches>()
+            |> ignore
+        )
         builder.Services
             .AddValidatorsFromAssemblyContaining<BatchStatRequestValidator>()
 
