@@ -32,7 +32,3 @@ module Domain =
                 RunTime = endDate - startDate 
                 Status = status 
             })
-
-    type WorkflowStat = {
-        Id: Guid
-    }
