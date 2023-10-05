@@ -5,6 +5,7 @@ open MediatR
 open AnalyticsService.Service.Api.Requests
 
 /// A handler for retrieving generic stats about all document batches.
+[<Sealed>]
 type GetGenericStatsForBatchesHandler() =
     interface IRequestHandler<GetGenericStatsForBatches, string> with
         member _.Handle(_, cancellationToken) =
