@@ -4,11 +4,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Database/Models.fs" />
+    <Compile Include="Database/Context.fs" />
+    <Compile Include="Database/Repositories.fs" />
+
     <Compile Include="Service/Api/*.fs" />
     <Compile Include="Service/Handlers/*.fs" />
+
     <Compile Include="Transport/Contracts/*.fs" />
     <Compile Include="Transport/Validation/*.fs" />
     <Compile Include="Transport/Controllers/*.fs" />
+
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
@@ -17,6 +22,7 @@
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Npgsql" Version="7.0.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Update="FSharp.Core" Version="7.0.400" />
   </ItemGroup>

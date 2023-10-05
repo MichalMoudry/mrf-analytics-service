@@ -5,6 +5,7 @@ open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open FluentValidation
+open AnalyticsService.Database.Context
 open AnalyticsService.Service.Api.Requests
 open AnalyticsService.Transport.Validation
 
@@ -22,6 +23,7 @@ module Program =
             | true -> builder.Configuration["DbConnection"]
             | false -> System.Environment.GetEnvironmentVariable("DB_CONN")
         printfn $"Connecting to a database on '{connectionString}'"
+        use dbConnection = GetConnection(connectionString)
 
         builder.Services.AddControllers()
         builder.Services.AddSwaggerGen()
