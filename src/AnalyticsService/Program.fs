@@ -2,13 +2,14 @@ namespace AnalyticsService
 
 #nowarn "20"
 open System.Data
+open AnalyticsService.Database.Helpers
+open AnalyticsService.Database.Context
+open AnalyticsService.Service.Api.Requests
+open AnalyticsService.Transport.Validation
 open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open FluentValidation
-open AnalyticsService.Database.Context
-open AnalyticsService.Service.Api.Requests
-open AnalyticsService.Transport.Validation
 
 module Program =
     let exitCode = 0
@@ -32,7 +33,7 @@ module Program =
         builder.Services.AddSwaggerGen()
         builder.Services.AddHealthChecks()
         builder.Services.AddMediatR(fun cfg ->
-            cfg.RegisterServicesFromAssemblyContaining<GetGenericStatsForBatches>()
+            cfg.RegisterServicesFromAssemblyContaining<GetGenericStatsQuery>()
             |> ignore
         )
         builder.Services

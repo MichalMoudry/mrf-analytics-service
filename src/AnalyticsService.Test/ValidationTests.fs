@@ -14,7 +14,6 @@ let TestBatchStatRequestValidation () =
         EndDate = DateTime.Now.AddDays(1)
         NumberOfDocuments = 5
         Status = AnalyticsService.Database.Domain.BatchStatus.Success
-        WorkflowId = Guid.NewGuid()
     }
     Assert.IsTrue(validator.Validate(request).IsValid)
 
@@ -30,7 +29,6 @@ let TestBatchStatRequestValidationAsCloudEvent () =
             EndDate = DateTime.Now.AddDays(1)
             NumberOfDocuments = 5
             Status = AnalyticsService.Database.Domain.BatchStatus.Success
-            WorkflowId = Guid.NewGuid()
         }
         Source = "test_source" 
     }

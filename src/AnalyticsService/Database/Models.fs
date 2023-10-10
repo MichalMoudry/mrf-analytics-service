@@ -1,6 +1,7 @@
 namespace AnalyticsService.Database
 
 open System
+open System.ComponentModel
 
 /// Module containing domain types.
 module Domain =
@@ -11,11 +12,22 @@ module Domain =
     
     /// Type representing a statistic about a single processed document batch.
     type BatchStat = {
+        [<Description("id")>]
         Id: Guid
+
+        [<Description("start_date")>]
         StartDate: DateTime
+
+        [<Description("end_date")>]
         EndDate: DateTime
+
+        [<Description("number_of_documents")>]
         NumberOfDocuments: int
+
+        [<Description("run_time")>]
         RunTime: TimeSpan
+
+        [<Description("status")>]
         Status: BatchStatus
     }
     

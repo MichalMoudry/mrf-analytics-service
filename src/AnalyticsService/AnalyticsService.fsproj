@@ -6,6 +6,7 @@
     <Compile Include="Database/Models.fs" />
     <Compile Include="Database/Context.fs" />
     <Compile Include="Database/Repositories.fs" />
+    <Compile Include="Database\Helpers.fs" />
 
     <Compile Include="Service/Model/*.fs" />
     <Compile Include="Service/Api/*.fs" />
@@ -18,6 +19,7 @@
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Dapper.FluentMap" Version="2.0.0" />
     <PackageReference Include="Dapper.FSharp" Version="4.7.0" />
     <PackageReference Include="Dapr.AspNetCore" Version="1.11.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />

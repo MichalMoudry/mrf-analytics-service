@@ -17,9 +17,6 @@ type BatchStatRequest = {
 
     [<JsonPropertyName("status")>]
     Status: BatchStatus
-
-    [<JsonPropertyName("workflow_id")>]
-    WorkflowId: Guid
 }
 
 /// A record representing a cloud event (V1) from MQ.

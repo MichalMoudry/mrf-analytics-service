@@ -20,23 +20,29 @@ type BatchAnalyticsController (
     [<HttpPost>]
     [<Topic("mrf-pub-sub", "batch-finish")>]
     member _.ReceiveBatchStat([<FromBody>] request: CloudEventV1<BatchStatRequest>) =
-        let result =
+        let validationResult =
             statValidator.ValidateAsync(request.Data)
             |> Async.AwaitTask
             |> Async.RunSynchronously
 
-        if not(result.IsValid) then
-            Results.BadRequest(result.Errors)
+        if not(validationResult.IsValid) then
+            Results.BadRequest(validationResult.Errors)
         else
             logger.LogInformation(
-                $"Received a document batch statistic.\n\t- Workflow ID: {request.Data.WorkflowId}"
+                $"Received a document batch statistic. {request.Data}"
             )
-            Results.Ok()
+            let result =
+                mediator.Send(InsertBatchStatCommand(request.Data))
+                |> Async.AwaitTask
+                |> Async.RunSynchronously
+            match result with
+            | true -> Results.Ok()
+            | false -> Results.StatusCode(StatusCodes.Status500InternalServerError)
 
     [<HttpGet>]
     member _.GetStatsForAllBatches() =
         let stats =
-            mediator.Send(GetGenericStatsForBatches())
+            mediator.Send(GetGenericStatsQuery())
             |> Async.AwaitTask
             |> Async.RunSynchronously
         Results.Ok(stats)

@@ -1,4 +1,4 @@
-namespace AnalyticsService.Service.Model.Dto
+namespace AnalyticsService.Transport.Contracts
 
 open System
 open System.Text.Json.Serialization

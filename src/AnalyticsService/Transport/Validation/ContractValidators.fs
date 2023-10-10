@@ -19,11 +19,6 @@ type BatchStatRequestValidator () as this =
         |> ignore
 
         this
-            .RuleFor(fun request -> request.WorkflowId)
-            .NotEmpty()
-        |> ignore
-
-        this
             .RuleFor(fun request -> request.Status)
             .NotNull()
             .IsInEnum()
