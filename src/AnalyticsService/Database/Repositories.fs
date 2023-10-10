@@ -4,17 +4,18 @@ open System.Data
 open AnalyticsService.Database.Domain
 open Dapper.FSharp.PostgreSQL
 
+/// A module providing queries for BatchStats table.
 [<Sealed>]
 module BatchStatRepository =
-    let statTable = table'<BatchStat> "batch_stats"
+    let statTable = table'<BatchStat> "BatchStats"
     
-    let insertRecord newStat (conn: IDbConnection) =
+    let InsertRecord newStat (conn: IDbConnection) =
         insert {
             into statTable
             value newStat
         } |> conn.InsertAsync
 
-    let getRecords (conn: IDbConnection) =
+    let GetRecords (conn: IDbConnection) =
         select {
             for stat in statTable do selectAll
         } |> conn.SelectAsync<BatchStat>

@@ -2,7 +2,6 @@ namespace AnalyticsService
 
 #nowarn "20"
 open System.Data
-open AnalyticsService.Database.Helpers
 open AnalyticsService.Database.Context
 open AnalyticsService.Service.Api.Requests
 open AnalyticsService.Transport.Validation
@@ -16,18 +15,15 @@ module Program =
 
     [<EntryPoint>]
     let main args =
-        Dapper.FSharp.PostgreSQL.OptionTypes.register()
-
         let builder = WebApplication.CreateBuilder(args)
 
         let connectionString =
             match builder.Environment.IsDevelopment() with
             | true -> builder.Configuration["DbConnection"]
             | false -> System.Environment.GetEnvironmentVariable("DB_CONN")
+
         printfn $"Connecting to a database on '{connectionString}'"
-        builder.Services.AddTransient<IDbConnection>(
-            fun i -> GetConnection(connectionString)
-        )
+        builder.Services.AddTransient<IDbConnection>(fun i -> DbInit connectionString)
 
         builder.Services.AddControllers()
         builder.Services.AddSwaggerGen()

@@ -3,6 +3,7 @@ module AnalyticsService.Database.Context
 open System.Data
 open Npgsql
 
-/// Method for opening a new connection to the database.
-let GetConnection connectionString =
+/// Method for initializing database.
+let DbInit connectionString =
+    Dapper.FSharp.PostgreSQL.OptionTypes.register()
     new NpgsqlConnection(connectionString) :> IDbConnection

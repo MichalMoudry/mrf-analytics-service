@@ -1,12 +1,12 @@
 BEGIN;
 
-CREATE TABLE batch_stats (
-    id UUID PRIMARY KEY,
-    start_date TIMESTAMP NOT NULL,
-    end_date TIMESTAMP NOT NULL,
-    number_of_documents INTEGER NOT NULL,
-    run_time INTERVAL NOT NULL,
-    status SMALLINT NOT NULL
+CREATE TABLE "BatchStats" (
+    "Id" UUID PRIMARY KEY,
+    "StartDate" TIMESTAMP NOT NULL,
+    "EndDate" TIMESTAMP NOT NULL,
+    "NumberOfDocuments" INTEGER NOT NULL,
+    "RunTime" INTERVAL NOT NULL,
+    "Status" SMALLINT NOT NULL
 );
 
 COMMIT;
