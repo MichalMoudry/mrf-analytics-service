@@ -1,6 +1,7 @@
 namespace AnalyticsService
 
 #nowarn "20"
+open System.Data
 open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
@@ -23,7 +24,9 @@ module Program =
             | true -> builder.Configuration["DbConnection"]
             | false -> System.Environment.GetEnvironmentVariable("DB_CONN")
         printfn $"Connecting to a database on '{connectionString}'"
-        use dbConnection = GetConnection(connectionString)
+        builder.Services.AddTransient<IDbConnection>(
+            fun i -> GetConnection(connectionString)
+        )
 
         builder.Services.AddControllers()
         builder.Services.AddSwaggerGen()

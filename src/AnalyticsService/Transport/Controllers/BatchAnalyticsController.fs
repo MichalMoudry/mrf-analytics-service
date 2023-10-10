@@ -10,16 +10,16 @@ open AnalyticsService.Service.Api.Requests
 open AnalyticsService.Transport.Contracts
 
 [<ApiController>]
-[<Route("/batch-analytics")>]
+[<Route("batch-analytics")>]
 type BatchAnalyticsController (
     logger : ILogger<BatchAnalyticsController>,
     mediator: IMediator,
     statValidator: IValidator<BatchStatRequest>) =
     inherit ControllerBase()
 
-    [<HttpPost("")>]
+    [<HttpPost>]
     [<Topic("mrf-pub-sub", "batch-finish")>]
-    member _.ReceiveBatchStat([<FromBody>] request: CloudEvent<BatchStatRequest>) =
+    member _.ReceiveBatchStat([<FromBody>] request: CloudEventV1<BatchStatRequest>) =
         let result =
             statValidator.ValidateAsync(request.Data)
             |> Async.AwaitTask
@@ -33,10 +33,10 @@ type BatchAnalyticsController (
             )
             Results.Ok()
 
-    [<HttpGet("")>]
-    member this.GetStatsForAllBatches() =
+    [<HttpGet>]
+    member _.GetStatsForAllBatches() =
         let stats =
             mediator.Send(GetGenericStatsForBatches())
             |> Async.AwaitTask
             |> Async.RunSynchronously
-        Ok(stats)
+        Results.Ok(stats)

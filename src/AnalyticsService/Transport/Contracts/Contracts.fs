@@ -1,4 +1,4 @@
-module AnalyticsService.Transport.Contracts
+namespace AnalyticsService.Transport.Contracts
 
 open System
 open System.Text.Json.Serialization
@@ -22,8 +22,8 @@ type BatchStatRequest = {
     WorkflowId: Guid
 }
 
-/// A record representing a cloud event from MQ.
-type CloudEvent<'T> = {
+/// A record representing a cloud event (V1) from MQ.
+type CloudEventV1<'T> = {
     [<JsonPropertyName("id")>]
     Id: string
 
