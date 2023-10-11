@@ -8,6 +8,7 @@ open Dapr
 open FluentValidation
 open AnalyticsService.Service.Api.Requests
 open AnalyticsService.Transport.Contracts
+open AnalyticsService.Service.Api.Dto
 
 [<ApiController>]
 [<Route("batch-analytics")>]
@@ -38,6 +39,7 @@ type BatchAnalyticsController (
             match result with
             | true -> Results.Ok()
             | false -> Results.StatusCode(StatusCodes.Status500InternalServerError)
+
 
     [<HttpGet>]
     member _.GetStatsForAllBatches() =
