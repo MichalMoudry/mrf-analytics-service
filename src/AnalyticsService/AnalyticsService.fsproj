@@ -3,12 +3,13 @@
     <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Config.fs" />
+
     <Compile Include="Database/Models.fs" />
     <Compile Include="Database/Repositories.fs" />
     <Compile Include="Database/Context.fs" />
 
     <Compile Include="Service/Model/*.fs" />
-    <Compile Include="Service/Api/Dto.fs" />
     <Compile Include="Service/Api/Commands.fs" />
     <Compile Include="Service/Api/Queries.fs" />
     <Compile Include="Service/Handlers/*.fs" />
@@ -21,7 +22,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Dapper.FSharp" Version="4.7.0" />
-    <PackageReference Include="Dapr.AspNetCore" Version="1.11.0" />
+    <PackageReference Include="Dapr.AspNetCore" Version="1.12.0" />
+    <PackageReference Include="FirebaseAdmin" Version="2.4.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />

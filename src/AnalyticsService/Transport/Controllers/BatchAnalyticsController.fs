@@ -8,7 +8,6 @@ open Dapr
 open FluentValidation
 open AnalyticsService.Service.Api.Requests
 open AnalyticsService.Transport.Contracts
-open AnalyticsService.Service.Api.Dto
 
 [<ApiController>]
 [<Route("batch-analytics")>]
@@ -33,7 +32,12 @@ type BatchAnalyticsController (
                 $"Received a document batch statistic. {request.Data}"
             )
             let result =
-                mediator.Send(InsertBatchStatCommand(request.Data))
+                mediator.Send(InsertBatchStatCommand(
+                    request.Data.StartDate,
+                    request.Data.EndDate,
+                    request.Data.NumberOfDocuments,
+                    request.Data.Status
+                ))
                 |> Async.AwaitTask
                 |> Async.RunSynchronously
             match result with
@@ -42,7 +46,7 @@ type BatchAnalyticsController (
 
 
     [<HttpGet>]
-    member _.GetStatsForAllBatches() =
+    member _.GetStatsForUser() =
         let stats =
             mediator.Send(GetGenericStatsQuery())
             |> Async.AwaitTask
