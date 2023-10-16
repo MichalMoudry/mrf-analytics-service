@@ -22,9 +22,8 @@ type InsertBatchStatCommandHandler(conn: IDbConnection) =
                     request.AppId
             if batch.IsSome then
                 BatchStatRepository.InsertRecord batch.Value conn
-                |> Async.AwaitTask
-                |> Async.RunSynchronously
-                |> ignore
+                    |> Async.AwaitTask
+                    |> Async.RunSynchronously
                 Task.FromResult(true)
             else
                 Task.FromResult(false)

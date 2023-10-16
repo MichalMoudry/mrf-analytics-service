@@ -5,16 +5,13 @@ open MediatR
 open Microsoft.AspNetCore.Authorization
 open Microsoft.AspNetCore.Http
 open Microsoft.AspNetCore.Mvc
-open Microsoft.Extensions.Logging
 open FluentValidation
 open AnalyticsService.Service.Api.Requests
 
 [<ApiController>]
 [<Authorize>]
 [<Route("batch-analytics")>]
-type BatchAnalyticsController (
-    logger : ILogger<BatchAnalyticsController>,
-    mediator: IMediator) =
+type BatchAnalyticsController (mediator: IMediator) =
     inherit ControllerBase()
 
     [<HttpGet>]
