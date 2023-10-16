@@ -7,6 +7,16 @@
 A repository with an analytics service, that is part of Microservice Reference Framework.
 
 ## Project structure
+- /src
+    - /AnalyticsService
+        - Program.fs
+        - /Transport
+        - /Service
+        - /Database
+    - /AnalyticsService.Test
+    - AnalyticsService.sln
+- /assets
+- /.azure
 ### Service architecture
 ```mermaid
 ---
