@@ -14,22 +14,6 @@ let TestBatchStatRequestValidation () =
         EndDate = DateTime.Now.AddDays(1)
         NumberOfDocuments = 5
         Status = AnalyticsService.Database.Domain.BatchStatus.Success
+        AppId = Guid.NewGuid() 
     }
     Assert.IsTrue(validator.Validate(request).IsValid)
-
-/// A test covering similar scenario as TestBatchStatRequestValidation,
-/// but with cloud event wrapper.
-[<Test>]
-let TestBatchStatRequestValidationAsCloudEvent () =
-    let validator = BatchStatRequestValidator()
-    let event = {
-        Id = Guid.NewGuid().ToString()
-        Data = {
-            StartDate = DateTime.Now
-            EndDate = DateTime.Now.AddDays(1)
-            NumberOfDocuments = 5
-            Status = AnalyticsService.Database.Domain.BatchStatus.Success
-        }
-        Source = "test_source" 
-    }
-    Assert.IsTrue(validator.Validate(event.Data).IsValid)

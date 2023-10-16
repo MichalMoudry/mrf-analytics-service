@@ -17,16 +17,7 @@ type BatchStatRequest = {
 
     [<JsonPropertyName("status")>]
     Status: BatchStatus
-}
 
-/// A record representing a cloud event (V1) from MQ.
-type CloudEventV1<'T> = {
-    [<JsonPropertyName("id")>]
-    Id: string
-
-    [<JsonPropertyName("data")>]
-    Data: 'T
-
-    [<JsonPropertyName("source")>]
-    Source: string
+    [<JsonPropertyName("app_id")>]
+    AppId: Guid
 }

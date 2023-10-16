@@ -1,7 +1,6 @@
 namespace AnalyticsService.Database
 
 open System
-open System.ComponentModel
 
 /// Module containing domain types.
 module Domain =
@@ -11,28 +10,19 @@ module Domain =
         | Failed = 1
     
     /// Type representing a statistic about a single processed document batch.
+    [<CLIMutable>]
     type BatchStat = {
-        [<Description("id")>]
         Id: Guid
-
-        [<Description("start_date")>]
         StartDate: DateTime
-
-        [<Description("end_date")>]
         EndDate: DateTime
-
-        [<Description("number_of_documents")>]
         NumberOfDocuments: int
-
-        [<Description("run_time")>]
         RunTime: TimeSpan
-
-        [<Description("status")>]
         Status: BatchStatus
+        AppId: Guid
     }
     
     /// A constructor function for creating an instance of BatchStat record.
-    let NewBatchStat startDate endDate docNumber status =
+    let NewBatchStat startDate endDate docNumber status appId =
         if startDate > endDate then
             None
         else
@@ -42,5 +32,6 @@ module Domain =
                 EndDate = endDate
                 NumberOfDocuments = docNumber
                 RunTime = endDate - startDate 
-                Status = status 
+                Status = status
+                AppId = appId 
             })

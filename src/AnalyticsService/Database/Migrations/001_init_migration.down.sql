@@ -1,5 +1,5 @@
 BEGIN;
 
-DROP TABLE BatchStats;
+DROP TABLE analytics."BatchStats";
 
 COMMIT;

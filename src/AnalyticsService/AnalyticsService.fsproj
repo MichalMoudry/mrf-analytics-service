@@ -3,13 +3,12 @@
     <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Config.fs" />
 
     <Compile Include="Database/Models.fs" />
     <Compile Include="Database/Repositories.fs" />
     <Compile Include="Database/Context.fs" />
 
-    <Compile Include="Service/Model/*.fs" />
+    <Compile Include="Service/Dto/*.fs" />
     <Compile Include="Service/Api/Commands.fs" />
     <Compile Include="Service/Api/Queries.fs" />
     <Compile Include="Service/Handlers/*.fs" />
@@ -23,9 +22,9 @@
   <ItemGroup>
     <PackageReference Include="Dapper.FSharp" Version="4.7.0" />
     <PackageReference Include="Dapr.AspNetCore" Version="1.12.0" />
-    <PackageReference Include="FirebaseAdmin" Version="2.4.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.12" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Npgsql" Version="7.0.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />

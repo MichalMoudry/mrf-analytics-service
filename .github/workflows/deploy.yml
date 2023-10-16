@@ -23,3 +23,47 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: michalmoudry/analytics-service
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./src/AnalyticsService
+          push: true
+          tags: michalmoudry/analytics-service:latest
+          labels: ${{ steps.meta.outputs.labels }}
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: [push_to_registery]
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      # https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Clinux
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy Container App
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          imageToDeploy: docker.io/michalmoudry/analytics-service:latest
+          resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          containerAppEnvironment: microservice-ref-framework-env
+          containerAppName: analytics-service
+          targetPort: 80
+          ingress: external
+          yamlConfigPath: ./.azure/app_template.yml
+
+      - name: Enable dapr for a Container App
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az containerapp dapr enable \
+              -n user-service \
+              -g ${{ secrets.AZURE_RESOURCE_GROUP }} \
+              --dapr-app-id userservice \
+              --dapr-app-protocol http \
+              --dapr-app-port 80

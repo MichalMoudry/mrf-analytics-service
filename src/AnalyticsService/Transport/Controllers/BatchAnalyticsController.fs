@@ -1,54 +1,26 @@
 namespace AnalyticsService.Transport.Controller
 
+open System
 open MediatR
+open Microsoft.AspNetCore.Authorization
 open Microsoft.AspNetCore.Http
 open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.Logging
-open Dapr
 open FluentValidation
 open AnalyticsService.Service.Api.Requests
-open AnalyticsService.Transport.Contracts
 
 [<ApiController>]
+[<Authorize>]
 [<Route("batch-analytics")>]
 type BatchAnalyticsController (
     logger : ILogger<BatchAnalyticsController>,
-    mediator: IMediator,
-    statValidator: IValidator<BatchStatRequest>) =
+    mediator: IMediator) =
     inherit ControllerBase()
 
-    [<HttpPost>]
-    [<Topic("mrf-pub-sub", "batch-finish")>]
-    member _.ReceiveBatchStat([<FromBody>] request: CloudEventV1<BatchStatRequest>) =
-        let validationResult =
-            statValidator.ValidateAsync(request.Data)
-            |> Async.AwaitTask
-            |> Async.RunSynchronously
-
-        if not(validationResult.IsValid) then
-            Results.BadRequest(validationResult.Errors)
-        else
-            logger.LogInformation(
-                $"Received a document batch statistic. {request.Data}"
-            )
-            let result =
-                mediator.Send(InsertBatchStatCommand(
-                    request.Data.StartDate,
-                    request.Data.EndDate,
-                    request.Data.NumberOfDocuments,
-                    request.Data.Status
-                ))
-                |> Async.AwaitTask
-                |> Async.RunSynchronously
-            match result with
-            | true -> Results.Ok()
-            | false -> Results.StatusCode(StatusCodes.Status500InternalServerError)
-
-
     [<HttpGet>]
-    member _.GetStatsForUser() =
+    member this.GetStatsForApp([<FromQuery>] appId: Guid) =
         let stats =
-            mediator.Send(GetGenericStatsQuery())
+            mediator.Send(GetGenericStatsQuery(appId))
             |> Async.AwaitTask
             |> Async.RunSynchronously
         Results.Ok(stats)

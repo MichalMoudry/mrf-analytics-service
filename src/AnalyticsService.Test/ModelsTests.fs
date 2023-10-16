@@ -9,7 +9,7 @@ open AnalyticsService.Database.Domain
 let TestBatchStatInit () =
     let startDate = DateTime(2023, 9, 26)
     let endDate = DateTime(2023, 9, 27)
-    let stat = NewBatchStat startDate endDate 5 BatchStatus.Success
+    let stat = NewBatchStat startDate endDate 5 BatchStatus.Success (Guid.NewGuid())
     Assert.IsTrue(stat.IsSome)
     Assert.That(stat.Value.RunTime, Is.EqualTo(TimeSpan.FromDays(1)))
 
@@ -17,5 +17,5 @@ let TestBatchStatInit () =
 let TestIncorrectBatchStatInit () =
     let startDate = DateTime(2023, 9, 27)
     let endDate = DateTime(2023, 9, 26)
-    let stat = NewBatchStat startDate endDate 5 BatchStatus.Success
+    let stat = NewBatchStat startDate endDate 5 BatchStatus.Success (Guid.NewGuid())
     Assert.IsTrue(stat.IsNone)
