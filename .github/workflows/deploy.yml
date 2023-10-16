@@ -46,6 +46,14 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Update subscription in app's config file
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "[subscription_id]"
+          replace: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          regex: false
+          include: "**app_template.yml"
+
       - name: Deploy Container App
         uses: azure/container-apps-deploy-action@v1
         with:
