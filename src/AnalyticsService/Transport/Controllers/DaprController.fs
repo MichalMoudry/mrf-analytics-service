@@ -18,7 +18,7 @@ type DaprController(
     inherit ControllerBase()
     
     [<HttpPost>]
-    [<Topic("mrf-pub-sub", "batch-finish-stat")>]
+    [<Topic("mrf_pub_sub", "batch-finish-stat")>]
     member _.ReceiveBatchStat([<FromBody>] request: CloudEvent<BatchStatRequest>) =
         let validationResult =
             statValidator.ValidateAsync(request.Data)

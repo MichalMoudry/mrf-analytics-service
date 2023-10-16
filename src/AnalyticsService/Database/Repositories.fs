@@ -8,13 +8,21 @@ open Dapper.FSharp.PostgreSQL
 /// A module providing queries for BatchStats table.
 [<Sealed>]
 module BatchStatRepository =
-    let statTable = table'<BatchStat> "BatchStats" |> inSchema "analytics"
+    let private statTable = table'<BatchStat> "BatchStats" |> inSchema "analytics"
     
     let InsertRecord newStat (conn: IDbConnection) =
-        insert {
-            into statTable
-            value newStat
-        } |> conn.InsertAsync
+        use transaction = conn.BeginTransaction()
+        conn.InsertAsync(
+            insert {
+                into statTable
+                value newStat
+            },
+            transaction
+        )
+        |> Async.AwaitTask
+        |> Async.RunSynchronously
+        |> ignore
+        transaction.Commit()
 
     let GetRecords (conn: IDbConnection, appId: Guid) =
         select {

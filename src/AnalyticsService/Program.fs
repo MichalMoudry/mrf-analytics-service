@@ -43,9 +43,7 @@ let main args =
     builder.Services.AddSwaggerGen()
     builder.Services.AddHealthChecks()
     builder.Services.AddMediatR(fun cfg ->
-        //cfg.RegisterServicesFromAssemblyContaining<GetGenericStatsQuery>()
-        cfg.RegisterServicesFromAssembly(typeof<Marker>.Assembly)
-        |> ignore
+        cfg.RegisterServicesFromAssembly(typeof<Marker>.Assembly) |> ignore
     )
     builder.Services
         .AddValidatorsFromAssemblyContaining<BatchStatRequestValidator>()
