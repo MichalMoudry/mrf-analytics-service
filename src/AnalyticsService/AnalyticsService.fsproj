@@ -5,8 +5,8 @@
   <ItemGroup>
 
     <Compile Include="Database/Models.fs" />
-    <Compile Include="Database/Repositories.fs" />
     <Compile Include="Database/Context.fs" />
+    <Compile Include="Database/Repositories/*.fs" />
 
     <Compile Include="Service/Dto/*.fs" />
     <Compile Include="Service/Api/Commands.fs" />

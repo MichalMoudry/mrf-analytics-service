@@ -8,6 +8,7 @@ open Microsoft.AspNetCore.Mvc
 open FluentValidation
 open AnalyticsService.Service.Api.Requests
 
+/// A controller class for handling requests related to statistics.
 [<ApiController>]
 [<Authorize>]
 [<Route("batch-analytics")>]
