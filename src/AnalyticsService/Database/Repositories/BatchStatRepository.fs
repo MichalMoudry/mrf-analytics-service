@@ -13,6 +13,7 @@ module BatchStatRepository =
     /// Method for inserting a new record into BatchStats table.
     let InsertRecord newStat (conn: IDbConnection) =
         task {
+            conn.Open()
             use transaction = conn.BeginTransaction()
             conn.InsertAsync(
                 insert {
@@ -32,3 +33,4 @@ module BatchStatRepository =
                 where (stat.AppId = appId)
                 selectAll
         } |> conn.SelectAsync<BatchStat>
+
