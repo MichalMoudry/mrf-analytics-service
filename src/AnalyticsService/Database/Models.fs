@@ -37,3 +37,13 @@ module Domain =
                 AppId = appId
                 Created = DateTime.Now 
             })
+
+    /// A record representing a dead topic that was meant for this service.
+    [<CLIMutable>]
+    type DeadTopic = {
+        Id: Guid
+        Endpoint: string
+        RequestData: byte[]
+        Source: string
+        DateAdded: DateTime
+    }

@@ -43,3 +43,7 @@ type DaprController(
             match result with
             | true -> Results.Ok()
             | false -> Results.StatusCode(StatusCodes.Status500InternalServerError)
+
+    [<HttpPost("dlq")>]
+    member this.PoisonedMessages() =
+        ()

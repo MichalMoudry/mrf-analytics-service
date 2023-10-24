@@ -11,4 +11,12 @@ CREATE TABLE analytics."BatchStats" (
     "Created" TIMESTAMP NOT NULL
 );
 
+CREATE TABLE analytics."DLQ" (
+    "Id" UUID PRIMARY KEY,
+    "Endpoint" VARCHAR(255) NOT NULL,
+    "RequestData" BYTEA NOT NULL,
+    "Source" VARCHAR(128) NOT NULL,
+    "DateAdded" TIMESTAMP NOT NULL
+);
+
 COMMIT;
