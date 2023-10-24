@@ -34,3 +34,16 @@ module BatchStatRepository =
                 selectAll
         } |> conn.SelectAsync<BatchStat>
 
+    /// Method for obtaining records/stats of a specific application for a specific period.
+    let GetRecordsForPeriod (
+        conn: IDbConnection,
+        appId: Guid,
+        startDate: DateTime,
+        period: TimeSpan) =
+        let endDate = startDate.Add(period)
+        select {
+            for stat in statTable do
+                where (stat.AppId = appId
+                       && stat.Created >= startDate
+                       && stat.Created <= endDate)
+        } |> conn.SelectAsync<BatchStat>

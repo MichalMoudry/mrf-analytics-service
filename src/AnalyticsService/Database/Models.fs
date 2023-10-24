@@ -19,6 +19,7 @@ module Domain =
         RunTime: TimeSpan
         Status: BatchStatus
         AppId: Guid
+        Created: DateTime
     }
     
     /// A constructor function for creating an instance of BatchStat record.
@@ -33,5 +34,6 @@ module Domain =
                 NumberOfDocuments = docNumber
                 RunTime = endDate - startDate 
                 Status = status
-                AppId = appId 
+                AppId = appId
+                Created = DateTime.Now 
             })

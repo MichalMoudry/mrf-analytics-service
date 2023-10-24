@@ -21,3 +21,15 @@ type BatchStatRequest = {
     [<JsonPropertyName("app_id")>]
     AppId: Guid
 }
+
+/// A record representing a request for obtaining stats for a specific time period.
+type BatchPeriodStatsRequest = {
+    [<JsonPropertyName("app_id")>]
+    AppId: Guid
+
+    [<JsonPropertyName("start_date")>]
+    StartDate: DateTime
+
+    [<JsonPropertyName("end_date")>]
+    EndDate: DateTime
+}

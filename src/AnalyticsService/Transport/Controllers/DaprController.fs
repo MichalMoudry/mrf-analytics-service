@@ -10,6 +10,7 @@ open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.Logging
 
 [<ApiController>]
+[<Sealed>]
 [<Route("dapr")>]
 type DaprController(
     logger : ILogger<DaprController>,
@@ -28,9 +29,7 @@ type DaprController(
         if not(validationResult.IsValid) then
             Results.BadRequest(validationResult.Errors)
         else
-            logger.LogInformation(
-                $"Received a document batch statistic. {request.Data}"
-            )
+            logger.LogInformation($"Received a document batch statistic. {request.Data}")
             let result =
                 mediator.Send(InsertBatchStatCommand(
                     request.Data.StartDate,
