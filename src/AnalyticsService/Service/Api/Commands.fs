@@ -13,3 +13,7 @@ type InsertBatchStatCommand(startDate: DateTime, endDate: DateTime, docsNumber: 
     member _.NumberOfDocuments = docsNumber
     member _.Status = status
     member _.WorkflowId = workflowId
+
+/// Command for inserting a new entry into the DLQ table.
+type InsertDlqEntryCommand() =
+    interface IRequest<bool>
