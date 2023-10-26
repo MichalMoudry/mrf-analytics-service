@@ -36,7 +36,7 @@ type DaprController(
                     request.Data.EndDate,
                     request.Data.NumberOfDocuments,
                     request.Data.Status,
-                    request.Data.AppId
+                    request.Data.WorkflowId
                 ))
                 |> Async.AwaitTask
                 |> Async.RunSynchronously

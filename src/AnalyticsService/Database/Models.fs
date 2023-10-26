@@ -18,12 +18,12 @@ module Domain =
         NumberOfDocuments: int
         RunTime: TimeSpan
         Status: BatchStatus
-        AppId: Guid
+        WorkflowId: Guid
         Created: DateTime
     }
     
     /// A constructor function for creating an instance of BatchStat record.
-    let NewBatchStat startDate endDate docNumber status appId =
+    let NewBatchStat startDate endDate docNumber status workflowId =
         if startDate > endDate then
             None
         else
@@ -34,7 +34,7 @@ module Domain =
                 NumberOfDocuments = docNumber
                 RunTime = endDate - startDate 
                 Status = status
-                AppId = appId
+                WorkflowId = workflowId
                 Created = DateTime.Now 
             })
 

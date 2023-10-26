@@ -7,7 +7,7 @@ CREATE TABLE analytics."BatchStats" (
     "NumberOfDocuments" INTEGER NOT NULL,
     "RunTime" INTERVAL NOT NULL,
     "Status" SMALLINT NOT NULL,
-    "AppId" UUID NOT NULL,
+    "WorkflowId" UUID NOT NULL,
     "Created" TIMESTAMP NOT NULL
 );
 

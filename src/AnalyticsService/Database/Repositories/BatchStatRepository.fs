@@ -30,7 +30,7 @@ module BatchStatRepository =
     let GetRecords (conn: IDbConnection, appId: Guid) =
         select {
             for stat in statTable do
-                where (stat.AppId = appId)
+                where (stat.WorkflowId = appId)
                 selectAll
         } |> conn.SelectAsync<BatchStat>
 
@@ -43,7 +43,7 @@ module BatchStatRepository =
         let endDate = startDate.Add(period)
         select {
             for stat in statTable do
-                where (stat.AppId = appId
+                where (stat.WorkflowId = appId
                        && stat.Created >= startDate
                        && stat.Created <= endDate)
         } |> conn.SelectAsync<BatchStat>

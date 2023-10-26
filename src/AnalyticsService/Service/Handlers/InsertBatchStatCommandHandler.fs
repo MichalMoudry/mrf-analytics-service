@@ -19,7 +19,7 @@ type InsertBatchStatCommandHandler(conn: IDbConnection) =
                     request.EndDate
                     request.NumberOfDocuments
                     request.Status
-                    request.AppId
+                    request.WorkflowId
             if batch.IsSome then
                 BatchStatRepository.InsertRecord batch.Value conn
                     |> Async.AwaitTask
