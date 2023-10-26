@@ -18,11 +18,12 @@ module Domain =
         NumberOfDocuments: int
         RunTime: TimeSpan
         Status: BatchStatus
-        AppId: Guid
+        WorkflowId: Guid
+        Created: DateTime
     }
     
     /// A constructor function for creating an instance of BatchStat record.
-    let NewBatchStat startDate endDate docNumber status appId =
+    let NewBatchStat startDate endDate docNumber status workflowId =
         if startDate > endDate then
             None
         else
@@ -33,5 +34,25 @@ module Domain =
                 NumberOfDocuments = docNumber
                 RunTime = endDate - startDate 
                 Status = status
-                AppId = appId 
+                WorkflowId = workflowId
+                Created = DateTime.Now 
             })
+
+    /// A record representing a dead topic that was meant for this service.
+    [<CLIMutable>]
+    type DeadTopic = {
+        Id: Guid
+        Endpoint: string
+        RequestData: byte[]
+        Source: string
+        DateAdded: DateTime
+    }
+
+    /// A constructor function for the DeadTopic record.
+    let NewDeadTopic endPoint requestData source = {
+        Id = Guid.NewGuid()
+        Endpoint = endPoint
+        RequestData = requestData
+        Source = source
+        DateAdded = DateTime.Now
+    }

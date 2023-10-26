@@ -27,10 +27,23 @@ module BatchStatRepository =
         }
 
     /// Method for obtaining records/stats for a specific application.
-    let GetRecords (conn: IDbConnection, appId: Guid) =
+    let GetRecords (conn: IDbConnection, workflowId: Guid) =
         select {
             for stat in statTable do
-                where (stat.AppId = appId)
+                where (stat.WorkflowId = workflowId)
                 selectAll
         } |> conn.SelectAsync<BatchStat>
 
+    /// Method for obtaining records/stats of a specific application for a specific period.
+    let GetRecordsForPeriod (
+        conn: IDbConnection,
+        workflowId: Guid,
+        startDate: DateTime,
+        period: TimeSpan) =
+        let endDate = startDate.Add(period)
+        select {
+            for stat in statTable do
+                where (stat.WorkflowId = workflowId
+                       && stat.Created >= startDate
+                       && stat.Created <= endDate)
+        } |> conn.SelectAsync<BatchStat>

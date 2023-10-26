@@ -18,6 +18,18 @@ type BatchStatRequest = {
     [<JsonPropertyName("status")>]
     Status: BatchStatus
 
-    [<JsonPropertyName("app_id")>]
-    AppId: Guid
+    [<JsonPropertyName("workflow_id")>]
+    WorkflowId: Guid
+}
+
+/// A record representing a request for obtaining stats for a specific time period.
+type BatchPeriodStatsRequest = {
+    [<JsonPropertyName("workflow_id")>]
+    WorkflowId: Guid
+
+    [<JsonPropertyName("start_date")>]
+    StartDate: DateTime
+
+    [<JsonPropertyName("end_date")>]
+    EndDate: DateTime
 }

@@ -10,6 +10,7 @@ open Microsoft.AspNetCore.Mvc
 open Microsoft.Extensions.Logging
 
 [<ApiController>]
+[<Sealed>]
 [<Route("dapr")>]
 type DaprController(
     logger : ILogger<DaprController>,
@@ -18,7 +19,7 @@ type DaprController(
     inherit ControllerBase()
     
     [<HttpPost>]
-    [<Topic("mrf_pub_sub", "batch-finish-stat")>]
+    [<Topic("mrf_pub_sub", "batch-finish-stat", "failed-message", false)>]
     member _.ReceiveBatchStat([<FromBody>] request: CloudEvent<BatchStatRequest>) =
         let validationResult =
             statValidator.ValidateAsync(request.Data)
@@ -28,19 +29,28 @@ type DaprController(
         if not(validationResult.IsValid) then
             Results.BadRequest(validationResult.Errors)
         else
-            logger.LogInformation(
-                $"Received a document batch statistic. {request.Data}"
-            )
+            logger.LogInformation($"Received a document batch statistic. {request.Data}")
             let result =
                 mediator.Send(InsertBatchStatCommand(
                     request.Data.StartDate,
                     request.Data.EndDate,
                     request.Data.NumberOfDocuments,
                     request.Data.Status,
-                    request.Data.AppId
+                    request.Data.WorkflowId
                 ))
                 |> Async.AwaitTask
                 |> Async.RunSynchronously
             match result with
             | true -> Results.Ok()
             | false -> Results.StatusCode(StatusCodes.Status500InternalServerError)
+
+    [<HttpPost("dlq")>]
+    [<Topic("mrf_pub_sub", "failed-message")>]
+    member this.PoisonedMessages() =
+        mediator.Send(
+            InsertDlqEntryCommand(this.Request.Body)
+        )
+        |> Async.AwaitTask
+        |> Async.RunSynchronously
+        |> ignore
+        Results.Ok()
