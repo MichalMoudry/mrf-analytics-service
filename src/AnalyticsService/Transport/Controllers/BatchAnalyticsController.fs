@@ -18,15 +18,15 @@ type BatchAnalyticsController (mediator: IMediator) =
     inherit ControllerBase()
 
     [<HttpGet>]
-    member this.GetStatsForApp([<FromQuery>] appId: Guid) =
+    member this.GetStatsForWorkflow([<FromQuery>] workflowId: Guid) =
         let stats =
-            mediator.Send(GetGenericStatsQuery(appId))
+            mediator.Send(GetGenericStatsQuery(workflowId))
             |> Async.AwaitTask
             |> Async.RunSynchronously
         Results.Ok(stats)
 
     [<HttpGet("period")>]
-    member this.GetStatsForApp([<FromBody>] data: BatchPeriodStatsRequest) =
+    member this.GetPeriodStatsForWorkflow([<FromBody>] data: BatchPeriodStatsRequest) =
         let stats =
             mediator.Send(
                 GetStatsForPeriodQuery(data.WorkflowId, data.StartDate, data.EndDate - data.StartDate)

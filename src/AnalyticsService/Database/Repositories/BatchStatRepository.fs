@@ -27,10 +27,10 @@ module BatchStatRepository =
         }
 
     /// Method for obtaining records/stats for a specific application.
-    let GetRecords (conn: IDbConnection, appId: Guid) =
+    let GetRecords (conn: IDbConnection, workflowId: Guid) =
         select {
             for stat in statTable do
-                where (stat.WorkflowId = appId)
+                where (stat.WorkflowId = workflowId)
                 selectAll
         } |> conn.SelectAsync<BatchStat>
 

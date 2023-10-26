@@ -6,9 +6,9 @@ open MediatR
 
 /// A query for obtaining generic stats about all document batches.
 [<Sealed>]
-type GetGenericStatsQuery(appId: Guid) =
+type GetGenericStatsQuery(workflowId: Guid) =
     interface IRequest<GeneralAppStats>
-    member _.AppId = appId
+    member _.WorkflowId = workflowId
 
 /// A query for obtaining generic stats for a specific time period.
 [<Sealed>]

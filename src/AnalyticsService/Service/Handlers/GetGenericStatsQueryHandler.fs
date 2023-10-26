@@ -20,7 +20,7 @@ type GetGenericStatsQueryHandler(conn: IDbConnection) =
         member _.Handle(request, cancellationToken) =
             if cancellationToken.IsCancellationRequested then ()
             let data =
-                BatchStatRepository.GetRecords(conn, request.AppId)
+                BatchStatRepository.GetRecords(conn, request.WorkflowId)
                 |> Async.AwaitTask
                 |> Async.RunSynchronously
                 |> Seq.toList
