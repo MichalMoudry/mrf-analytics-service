@@ -12,8 +12,8 @@ type GetGenericStatsQuery(appId: Guid) =
 
 /// A query for obtaining generic stats for a specific time period.
 [<Sealed>]
-type GetStatsForPeriodQuery(appId: Guid, startDate: DateTime, period: TimeSpan) =
+type GetStatsForPeriodQuery(workflowId: Guid, startDate: DateTime, period: TimeSpan) =
     interface IRequest<GeneralAppStats>
-    member _.AppId = appId
+    member _.WorkflowId = workflowId
     member _.StartDate = startDate
     member _.Period = period

@@ -29,7 +29,7 @@ type BatchAnalyticsController (mediator: IMediator) =
     member this.GetStatsForApp([<FromBody>] data: BatchPeriodStatsRequest) =
         let stats =
             mediator.Send(
-                GetStatsForPeriodQuery(data.AppId, data.StartDate, data.EndDate - data.StartDate)
+                GetStatsForPeriodQuery(data.WorkflowId, data.StartDate, data.EndDate - data.StartDate)
             )
             |> Async.AwaitTask
             |> Async.RunSynchronously

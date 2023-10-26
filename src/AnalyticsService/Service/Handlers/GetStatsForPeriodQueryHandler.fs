@@ -24,7 +24,7 @@ type GetStatsForPeriodQueryHandler(conn: IDbConnection) =
                 let data =
                     BatchStatRepository.GetRecordsForPeriod(
                         conn,
-                        request.AppId,
+                        request.WorkflowId,
                         request.StartDate,
                         request.Period
                     )
