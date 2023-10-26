@@ -72,6 +72,6 @@ jobs:
             az containerapp dapr enable \
               -n analytics-service \
               -g ${{ secrets.AZURE_RESOURCE_GROUP }} \
-              --dapr-app-id userservice \
+              --dapr-app-id analytics-service \
               --dapr-app-protocol http \
               --dapr-app-port 80
