@@ -47,3 +47,12 @@ module Domain =
         Source: string
         DateAdded: DateTime
     }
+
+    /// A constructor function for the DeadTopic record.
+    let NewDeadTopic endPoint requestData source = {
+        Id = Guid.NewGuid()
+        Endpoint = endPoint
+        RequestData = requestData
+        Source = source
+        DateAdded = DateTime.Now
+    }
