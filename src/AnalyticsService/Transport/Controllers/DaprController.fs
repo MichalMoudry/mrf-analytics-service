@@ -1,5 +1,6 @@
 namespace AnalyticsService.Transport.Controllers
 
+open System.Text.Json.Serialization
 open AnalyticsService.Service.Api.Requests
 open AnalyticsService.Transport.Contracts
 open Dapr
@@ -46,4 +47,10 @@ type DaprController(
 
     [<HttpPost("dlq")>]
     member this.PoisonedMessages() =
-        ()
+        (*
+        mediator.Send(InsertDlqEntryCommand())
+        |> Async.AwaitTask
+        |> Async.RunSynchronously
+        |> ignore
+        *)
+        Results.Ok()
