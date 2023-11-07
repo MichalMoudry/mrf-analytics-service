@@ -1,6 +1,7 @@
 namespace AnalyticsService.Service.Api.Requests
 
 open System
+open System.IO
 open AnalyticsService.Database.Domain
 open MediatR
 
@@ -15,5 +16,6 @@ type InsertBatchStatCommand(startDate: DateTime, endDate: DateTime, docsNumber: 
     member _.WorkflowId = workflowId
 
 /// Command for inserting a new entry into the DLQ table.
-type InsertDlqEntryCommand() =
+type InsertDlqEntryCommand(data: Stream) =
     interface IRequest<bool>
+    member _.Data = data

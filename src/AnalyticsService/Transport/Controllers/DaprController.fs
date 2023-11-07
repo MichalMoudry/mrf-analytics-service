@@ -1,9 +1,10 @@
 namespace AnalyticsService.Transport.Controllers
 
-open System.Text.Json.Serialization
+open System.Threading
 open AnalyticsService.Service.Api.Requests
 open AnalyticsService.Transport.Contracts
 open Dapr
+open Dapr.Client
 open FluentValidation
 open MediatR
 open Microsoft.AspNetCore.Http
@@ -20,7 +21,7 @@ type DaprController(
     inherit ControllerBase()
     
     [<HttpPost>]
-    [<Topic("mrf_pub_sub", "batch-finish-stat")>]
+    [<Topic("mrf-pub-sub", "batch-finish-stat", false, DeadLetterTopic = "poisonMessages")>]
     member _.ReceiveBatchStat([<FromBody>] request: CloudEvent<BatchStatRequest>) =
         let validationResult =
             statValidator.ValidateAsync(request.Data)
@@ -45,12 +46,25 @@ type DaprController(
             | true -> Results.Ok()
             | false -> Results.StatusCode(StatusCodes.Status500InternalServerError)
 
-    [<HttpPost("dlq")>]
+    [<HttpPost("test-message")>]
+    member this.Test() =
+        use source = new CancellationTokenSource()
+        use client = DaprClientBuilder().Build()
+        client.PublishEventAsync(
+            "mrf-pub-sub",
+            "batch-finish-stat",
+            {| TestValue = "test_val"; Amount = 5.64m |},
+            source.Token
+        )
+        |> Async.AwaitTask
+        |> Async.RunSynchronously
+        Results.Ok()
+
+    [<HttpPost("/failedMessages")>]
+    [<Topic("mrf-pub-sub", "poisonMessages")>]
     member this.PoisonedMessages() =
-        (*
-        mediator.Send(InsertDlqEntryCommand())
+        mediator.Send(InsertDlqEntryCommand(this.Request.Body))
         |> Async.AwaitTask
         |> Async.RunSynchronously
         |> ignore
-        *)
         Results.Ok()
