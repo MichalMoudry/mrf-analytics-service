@@ -19,7 +19,7 @@ type DaprController(
     inherit ControllerBase()
     
     [<HttpPost>]
-    [<Topic("mrf_pub_sub", "batch-finish-stat", "failed-message", false)>]
+    [<Topic("mrf-pub-sub", "batch-finish-stat", false, DeadLetterTopic = "poisonMessages")>]
     member _.ReceiveBatchStat([<FromBody>] request: CloudEvent<BatchStatRequest>) =
         let validationResult =
             statValidator.ValidateAsync(request.Data)
@@ -44,8 +44,8 @@ type DaprController(
             | true -> Results.Ok()
             | false -> Results.StatusCode(StatusCodes.Status500InternalServerError)
 
-    [<HttpPost("dlq")>]
-    [<Topic("mrf_pub_sub", "failed-message")>]
+    [<HttpPost("/failedMessages")>]
+    [<Topic("mrf-pub-sub", "poisonMessages")>]
     member this.PoisonedMessages() =
         mediator.Send(
             InsertDlqEntryCommand(this.Request.Body)
