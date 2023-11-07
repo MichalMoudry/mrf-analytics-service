@@ -45,10 +45,10 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v4
 
-      - name: Pull go-migrate
+      - name: Pull go-migrate and migrate DB
         run: |
           docker pull migrate/migrate
-          docker run -v ./src/Database/Migrations:/migrations --network host migrate/migrate -path=/migrations/ \
+          docker run -v ./src/AnalyticsService/Database/Migrations:/migrations --network host migrate/migrate -path=/migrations/ \
           -database postgres://$DB_ADMIN_NAME:$DB_ADMIN_PASSWORD@$DB_SERVER_NAME:5432/mrf?search_path=analytics up
 
   deploy:
