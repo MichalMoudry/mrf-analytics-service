@@ -1,5 +1,7 @@
 name: Deploy to Azure
 on:
+  push:
+    branches: [ "main" ]
   release:
     types: [published]
   workflow_dispatch:
@@ -31,6 +33,23 @@ jobs:
           push: true
           tags: michalmoudry/analytics-service:latest
           labels: ${{ steps.meta.outputs.labels }}
+
+  migrate_db:
+    name: Migrate database schema
+    runs-on: ubuntu-latest
+    env:
+      DB_SERVER_NAME: ${{ secrets.DB_SERVER_NAME }}
+      DB_ADMIN_NAME: ${{ secrets.DB_ADMIN_NAME }}
+      DB_ADMIN_PASSWORD: ${{ secrets.DB_ADMIN_PASSWORD }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Pull go-migrate
+        run: |
+          docker pull migrate/migrate
+          docker run -v ./src/Database/Migrations:/migrations --network host migrate/migrate -path=/migrations/ \
+          -database postgres://$DB_ADMIN_NAME:$DB_ADMIN_PASSWORD@$DB_SERVER_NAME:5432/mrf?search_path=analytics up
 
   deploy:
     name: Deploy
