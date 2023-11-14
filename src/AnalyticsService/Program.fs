@@ -45,8 +45,7 @@ let main args =
     builder.Services.AddMediatR(fun cfg ->
         cfg.RegisterServicesFromAssembly(typeof<Marker>.Assembly) |> ignore
     )
-    builder.Services
-        .AddValidatorsFromAssemblyContaining<BatchStatRequestValidator>()
+    builder.Services.AddValidatorsFromAssemblyContaining<BatchStatRequestValidator>()
 
     let app = builder.Build()
     app.UseSwagger().UseSwaggerUI()
