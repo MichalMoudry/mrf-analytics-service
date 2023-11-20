@@ -7,7 +7,6 @@ open FluentValidation
 open MediatR
 open Microsoft.AspNetCore.Http
 open Microsoft.AspNetCore.Mvc
-open Microsoft.Extensions.Logging
 
 [<ApiController>]
 [<Sealed>]
