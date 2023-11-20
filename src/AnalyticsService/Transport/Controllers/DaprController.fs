@@ -13,7 +13,6 @@ open Microsoft.Extensions.Logging
 [<Sealed>]
 [<Route("dapr")>]
 type DaprController(
-    logger : ILogger<DaprController>,
     mediator: IMediator,
     statValidator: IValidator<BatchStatRequest>) =
     inherit ControllerBase()
@@ -29,7 +28,6 @@ type DaprController(
         if not(validationResult.IsValid) then
             Results.BadRequest(validationResult.Errors)
         else
-            logger.LogInformation($"Received a document batch statistic. {request.Data}")
             let result =
                 mediator.Send(InsertBatchStatCommand(
                     request.Data.StartDate,

@@ -48,7 +48,8 @@ let main args =
     builder.Services.AddValidatorsFromAssemblyContaining<BatchStatRequestValidator>()
 
     let app = builder.Build()
-    app.UseSwagger().UseSwaggerUI()
+    if app.Environment.IsDevelopment() then
+        app.UseSwagger().UseSwaggerUI() |> ignore
     app.MapSubscribeHandler()
     app.UseAuthorization()
     app.MapControllers()
