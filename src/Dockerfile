@@ -5,7 +5,8 @@ WORKDIR /source
 COPY *.sln .
 COPY AnalyticsService/*.fsproj ./AnalyticsService/
 COPY AnalyticsService.Test/*.fsproj ./AnalyticsService.Test/
-RUN dotnet restore
+COPY AnalyticsService.BgRunner/*.fsproj ./AnalyticsService.BgRunner/
+# RUN dotnet restore
 
 # Copy source code and build the app
 COPY AnalyticsService/. ./AnalyticsService/
@@ -14,7 +15,7 @@ RUN dotnet publish -c release -o /app
 # --no-restore
 
 # Create release image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/aspnet:7.0.14-alpine3.18
 WORKDIR /app
 COPY --from=build /app ./
 
