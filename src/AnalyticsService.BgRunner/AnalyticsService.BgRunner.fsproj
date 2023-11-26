@@ -7,7 +7,7 @@
 
 
   <ItemGroup>
-    <Compile Include="Worker.fs" />
+    <Compile Include="Service\Jobs\*.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
