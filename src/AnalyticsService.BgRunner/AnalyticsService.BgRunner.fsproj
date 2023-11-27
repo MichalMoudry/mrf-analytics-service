@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <UserSecretsId>dotnet-AnalyticsService.BgRunner-120472ba-985e-4d60-bd0d-14bcae006750</UserSecretsId>
   </PropertyGroup>
 
