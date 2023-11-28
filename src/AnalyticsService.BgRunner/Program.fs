@@ -1,6 +1,6 @@
 namespace AnalyticsService.BgRunner
 
-open AnalyticsService.BgRunner.Service.Jobs
+open AnalyticsService.BgRunner.Service.Extensions
 open Quartz
 open Microsoft.Extensions.Hosting
 
@@ -8,13 +8,16 @@ module Program =
     let createHostBuilder args =
         Host.CreateDefaultBuilder(args)
             .ConfigureServices(
-                fun _ services -> (
-                    services.AddQuartz(fun q -> (
-                        q.ScheduleJob<HelloJobDefinition.HelloJob>(HelloJobDefinition.trigger) |> ignore
-                    )) |> ignore
-                    services.AddQuartzHostedService(fun options -> (
-                        options.WaitForJobsToComplete <- true
-                    )) |> ignore
+                fun ctx services -> (
+                    services
+                        .RegisterAdditionalServices(
+                            ctx.HostingEnvironment.IsProduction(),
+                            ctx.Configuration
+                        )
+                        .AddQuartzHostedService(fun options -> (
+                            options.WaitForJobsToComplete <- true
+                        ))
+                        |> ignore
                 )
             )
 

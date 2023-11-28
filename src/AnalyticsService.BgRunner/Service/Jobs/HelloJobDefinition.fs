@@ -12,7 +12,7 @@ type HelloJob() =
                 return ()
             }
 
-let trigger: Action<ITriggerConfigurator> =
+let trigger =
     Action<ITriggerConfigurator>(
         fun trigger ->
             trigger
