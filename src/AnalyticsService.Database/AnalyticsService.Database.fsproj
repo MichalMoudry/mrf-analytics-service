@@ -10,6 +10,7 @@
       <Compile Include="Models.fs" />
       <Compile Include="Repositories\BatchStatRepository.fs" />
       <Compile Include="Repositories\DlqRepository.fs" />
+      <Content Include="Migrations\*.sql" />
     </ItemGroup>
 
     <ItemGroup>
