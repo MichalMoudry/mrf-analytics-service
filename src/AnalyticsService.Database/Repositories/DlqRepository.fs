@@ -26,12 +26,12 @@ let NewDlqItem deadTopic (conn: IDbConnection) =
 /// Method for selecting all items in a dead letter queue.
 let GetDlqItems<'T> (conn: IDbConnection) =
     select {
-        for item in dlqTable do
+        for _ in dlqTable do
             selectAll
     } |> conn.SelectAsync<'T>
 
-let DeleteDlqItems (conn: IDbConnection) ids =
+let DeleteDlqItems (conn: IDbConnection) (ids: list<Guid>) =
     delete {
         for item in dlqTable do
-            where (item.Id.Equals(Guid.Empty))
+            where (ids |> List.contains item.Id)
     } |> conn.DeleteAsync

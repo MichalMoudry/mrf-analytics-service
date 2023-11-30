@@ -1,4 +1,4 @@
-module AnalyticsService.BgRunner.Service.Jobs.ArchiveJobDefinition
+module AnalyticsService.BgRunner.Service.Jobs.DlqJobDefinition
 
 open System
 open System.Data
@@ -7,7 +7,7 @@ open AnalyticsService.BgRunner.Service.Model
 open Microsoft.FSharp.Control
 open Quartz
 
-type internal ArchiveJob(conn: IDbConnection) =
+type internal DlqJob(conn: IDbConnection) =
     interface IJob with
         member this.Execute ctx =
             task {
@@ -16,8 +16,20 @@ type internal ArchiveJob(conn: IDbConnection) =
                     |> Async.AwaitTask
                     |> Async.RunSynchronously
                     |> Seq.toList
+                items
+                |> List.map (fun i -> i.RequestData)
+                |> this.replayHttpRequest
+                (*
+                    DlqRepository.DeleteDlqItems
+                        conn
+                        (items |> List.map (fun i -> i.Id))
+                    |> ignore
+                *)
                 return ()
             }
+    
+    member this.replayHttpRequest content =
+        ()
 
 let trigger =
     Action<ITriggerConfigurator>(

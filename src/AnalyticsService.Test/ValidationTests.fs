@@ -15,7 +15,7 @@ let TestBatchStatRequestValidation () =
         EndDate = DateTime.Now.AddDays(1)
         NumberOfDocuments = 5
         Status = AnalyticsService.Database.Domain.BatchStatus.Success
-        WorkflowId = Guid.NewGuid() 
+        WorkflowId = Guid.NewGuid()
     }
     Assert.That(validator.Validate(request).IsValid, Is.True)
 

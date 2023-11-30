@@ -30,6 +30,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\AnalyticsService\AnalyticsService.fsproj" />
+      <ProjectReference Include="..\AnalyticsService.Database\AnalyticsService.Database.fsproj" />
     </ItemGroup>
 
     <ItemGroup>
