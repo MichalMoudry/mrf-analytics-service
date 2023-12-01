@@ -17,7 +17,9 @@ module Program =
                         .AddQuartzHostedService(fun options -> (
                             options.WaitForJobsToComplete <- true
                         ))
+                        //.RegisterHttpClients()
                         |> ignore
+                    services.RegisterHttpClients() |> ignore
                 )
             )
 
