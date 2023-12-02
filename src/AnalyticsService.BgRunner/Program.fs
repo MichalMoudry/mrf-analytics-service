@@ -1,19 +1,25 @@
 namespace AnalyticsService.BgRunner
 
-open Microsoft.Extensions.DependencyInjection
+open AnalyticsService.BgRunner.Service.Extensions
+open Quartz
 open Microsoft.Extensions.Hosting
 
 module Program =
     let createHostBuilder args =
-        (*
-            Host.CreateDefaultBuilder(args)
-            .ConfigureServices(fun hostContext services ->
-                services.AddHostedService<Worker>() |> ignore)
-        *)
         Host.CreateDefaultBuilder(args)
             .ConfigureServices(
-                fun _ services -> (
-                    services.AddHostedService<Worker>() |> ignore
+                fun ctx services -> (
+                    services
+                        .RegisterAdditionalServices(
+                            ctx.HostingEnvironment.IsProduction(),
+                            ctx.Configuration
+                        )
+                        .AddQuartzHostedService(fun options -> (
+                            options.WaitForJobsToComplete <- true
+                        ))
+                        //.RegisterHttpClients()
+                        |> ignore
+                    services.RegisterHttpClients() |> ignore
                 )
             )
 

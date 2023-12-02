@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Include="Context.fs" />
+      <Compile Include="Models.fs" />
+      <Compile Include="Repositories\BatchStatRepository.fs" />
+      <Compile Include="Repositories\DlqRepository.fs" />
+      <Content Include="Migrations\*.sql" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapper.FSharp" Version="4.7.0" />
+      <PackageReference Include="Npgsql" Version="8.0.0" />
+    </ItemGroup>
+
+</Project>
