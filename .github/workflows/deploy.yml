@@ -94,4 +94,4 @@ jobs:
               -g ${{ secrets.AZURE_RESOURCE_GROUP }} \
               --dapr-app-id analytics-service \
               --dapr-app-protocol http \
-              --dapr-app-port 80
+              --dapr-app-port 8080
