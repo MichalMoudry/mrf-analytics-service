@@ -5,7 +5,7 @@ WORKDIR /source
 COPY *.sln .
 COPY AnalyticsService/*.fsproj ./AnalyticsService/
 COPY AnalyticsService.Test/*.fsproj ./AnalyticsService.Test/
-COPY AnalyticsService.BgRunner/*.fsproj ./AnalyticsService.BgRunner/
+# COPY AnalyticsService.BgRunner/*.fsproj ./AnalyticsService.BgRunner/
 # RUN dotnet restore
 
 # Copy source code and build the app
