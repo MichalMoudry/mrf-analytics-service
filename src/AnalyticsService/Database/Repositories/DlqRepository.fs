@@ -1,10 +1,10 @@
-[<Sealed>]
+﻿[<Sealed>]
 module AnalyticsService.Database.Repositories.DlqRepository
 
-open System
 open System.Data
 open AnalyticsService.Database.Domain
 open Dapper.FSharp.PostgreSQL
+open System
 
 let private dlqTable = table'<DeadTopic> "DLQ" |> inSchema "analytics"
 
@@ -30,6 +30,7 @@ let GetDlqItems<'T> (conn: IDbConnection) =
             selectAll
     } |> conn.SelectAsync<'T>
 
+/// Method for deleting a batch of DLQ items.
 let DeleteDlqItems (conn: IDbConnection) (ids: list<Guid>) =
     delete {
         for item in dlqTable do

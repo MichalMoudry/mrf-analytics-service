@@ -1,17 +1,23 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0.0-alpine3.18 AS base
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /source
+
+# Restore project and solution
+COPY *.sln .
+COPY AnalyticsService/*.fsproj ./AnalyticsService/
+COPY AnalyticsService.Test/*.fsproj ./AnalyticsService.Test/
+COPY AnalyticsService.BgRunner/*.fsproj ./AnalyticsService.BgRunner/
+# RUN dotnet restore
+
+# Copy source code and build the app
+COPY AnalyticsService/. ./AnalyticsService/
+WORKDIR /source/AnalyticsService
+RUN dotnet publish -c release -o /app
+# --no-restore
+
+# Create release image
+FROM mcr.microsoft.com/dotnet/aspnet:7.0.14-alpine3.18
 WORKDIR /app
-EXPOSE 8080
+COPY --from=build /app ./
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
-COPY AnalyticsService.Database/. ./AnalyticsService.Database
-COPY AnalyticsService/. ./AnalyticsService
-RUN dotnet build AnalyticsService/AnalyticsService.fsproj -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "AnalyticsService/AnalyticsService.fsproj" -c Release -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "AnalyticsService.dll"]
+EXPOSE 80
+ENTRYPOINT [ "dotnet", "AnalyticsService.dll" ]

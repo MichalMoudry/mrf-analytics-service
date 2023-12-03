@@ -7,10 +7,6 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AnalyticsService", "Analyti
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AnalyticsService.Test", "AnalyticsService.Test\AnalyticsService.Test.fsproj", "{1F8DC91E-B47C-4FEA-BE59-49AFD42B562B}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AnalyticsService.BgRunner", "AnalyticsService.BgRunner\AnalyticsService.BgRunner.fsproj", "{E15327E8-CE80-43B2-B5DF-53F50DD8B53B}"
-EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AnalyticsService.Database", "AnalyticsService.Database\AnalyticsService.Database.fsproj", "{D9C2A76E-CF86-489E-B51B-7E8DBCC0D33E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,13 +24,5 @@ Global
 		{1F8DC91E-B47C-4FEA-BE59-49AFD42B562B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F8DC91E-B47C-4FEA-BE59-49AFD42B562B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F8DC91E-B47C-4FEA-BE59-49AFD42B562B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E15327E8-CE80-43B2-B5DF-53F50DD8B53B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E15327E8-CE80-43B2-B5DF-53F50DD8B53B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E15327E8-CE80-43B2-B5DF-53F50DD8B53B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E15327E8-CE80-43B2-B5DF-53F50DD8B53B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D9C2A76E-CF86-489E-B51B-7E8DBCC0D33E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D9C2A76E-CF86-489E-B51B-7E8DBCC0D33E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D9C2A76E-CF86-489E-B51B-7E8DBCC0D33E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D9C2A76E-CF86-489E-B51B-7E8DBCC0D33E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

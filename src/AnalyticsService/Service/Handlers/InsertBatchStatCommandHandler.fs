@@ -12,7 +12,6 @@ open AnalyticsService.Service.Api.Requests
 type InsertBatchStatCommandHandler(conn: IDbConnection) =
     interface IRequestHandler<InsertBatchStatCommand, bool> with
         member this.Handle(request, cancellationToken) =
-            (*
             if cancellationToken.IsCancellationRequested then
                 Task.FromResult(false)
             else
@@ -30,13 +29,3 @@ type InsertBatchStatCommandHandler(conn: IDbConnection) =
                     Task.FromResult(true)
                 else
                     Task.FromResult(false)
-            *)
-            task {
-                if cancellationToken.IsCancellationRequested then
-                    return false
-                else
-                    let batch =
-                        NewBatchStat
-                            request.StartDate
-                    return true
-            }
