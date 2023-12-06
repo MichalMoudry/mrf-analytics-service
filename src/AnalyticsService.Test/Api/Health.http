@@ -1,4 +1,0 @@
-@hostname=localhost
-@port=8080
-
-GET http://localhost:5116/health HTTP/1.1
