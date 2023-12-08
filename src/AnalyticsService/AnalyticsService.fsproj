@@ -6,6 +6,7 @@
     <Compile Include="Domain/*.fs" />
     <Compile Include="Database/Repositories/*.fs" />
     <Compile Include="Database/*.fs" />
+    <Compile Include="Service/Model/*.fs" />
     <Compile Include="Service/Queries/*.fs" />
     <Compile Include="Transport/Contracts/Requests/*.fs" />
     <Compile Include="Transport/Contracts/Responses/*.fs" />
