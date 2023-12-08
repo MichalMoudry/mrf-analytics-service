@@ -1,3 +1,4 @@
+/// Module containing code related to operations for a dead letter database table.
 [<Sealed>]
 module AnalyticsService.Repositories.DlqRepository
 
@@ -8,6 +9,7 @@ open System.Data
 
 let private dlqTable = table'<DeadTopic> "DLQ"
 
+/// Method for adding a new dead letter to the database.
 let internal NewDlqItem letter (conn: IDbConnection) =
     task {
         conn.Open()

@@ -1,6 +1,7 @@
 namespace AnalyticsService
 
 #nowarn "20"
+open AnalyticsService.Extensions
 open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
@@ -14,6 +15,7 @@ module Program =
 
         let builder = WebApplication.CreateBuilder(args)
 
+        builder.Services.RegisterValidators()
         builder.Services.AddControllers()
 
         let app = builder.Build()

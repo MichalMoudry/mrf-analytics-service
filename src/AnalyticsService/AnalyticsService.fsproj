@@ -8,11 +8,22 @@
     <Compile Include="Domain/*.fs" />
     <Compile Include="Database/Repositories/*.fs" />
     <Compile Include="Database/*.fs" />
+    <Compile Include="Transport/Contracts/Requests/*.fs" />
+    <Compile Include="Transport/Contracts/Responses/*.fs" />
+    <Compile Include="Transport/Validation/*.fs" />
+    <Compile Include="Transport/Controllers/*.fs" />
+    <Compile Include="Extensions.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="AnalyticsService.Test" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper.FSharp" Version="4.7.0" />
+    <PackageReference Include="Dapr.AspNetCore" Version="1.12.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="Npgsql" Version="8.0.1" />
   </ItemGroup>
 
