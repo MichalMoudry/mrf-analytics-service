@@ -3,15 +3,14 @@ namespace AnalyticsService.Transport.Validation
 open AnalyticsService.Transport.Contracts.Requests
 open FluentValidation
 
-/// A validator class for BatchStatRequest record.
+/// Validator class for BatchPeriodStatRequest record.
 [<Sealed>]
-type internal BatchStatRequestValidator() as this =
-    inherit AbstractValidator<BatchStatRequest>()
+type internal BatchPeriodStatRequestValidator() as this =
+    inherit AbstractValidator<BatchPeriodStatRequest>()
     do
+        this.RuleFor(fun i -> i.WorkflowId).NotEmpty() |> ignore
         this.RuleFor(fun i -> i.StartDate).NotEmpty() |> ignore
         this
             .RuleFor(fun i -> i.EndDate)
             .NotEmpty()
             .GreaterThan(fun i -> i.StartDate) |> ignore
-        this.RuleFor(fun i -> i.Status).NotEmpty() |> ignore
-        this.RuleFor(fun i -> i.NumberOfDocuments).GreaterThan(0) |> ignore

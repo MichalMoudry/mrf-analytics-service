@@ -4,11 +4,11 @@ open System
 open System.Text.Json.Serialization
 
 /// A record representing a request for obtaining stats for a specific time period.
-type BatchPeriodStatsRequest = {
+type internal BatchPeriodStatRequest = {
     [<JsonPropertyName("workflow_id")>]
     WorkflowId: Guid
 
-    [<JsonPropertyName("start_date")>]
+    [<JsonPropertyName("start_date")>]    
     StartDate: DateTimeOffset
 
     [<JsonPropertyName("end_date")>]

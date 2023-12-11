@@ -4,7 +4,7 @@ open System
 open System.Text.Json.Serialization
 
 /// A record representing a request for adding a new document batch statistic.
-type BatchStatRequest = {
+type internal BatchStatRequest = {
     [<JsonPropertyName("start_date")>]
     StartDate: DateTimeOffset
 
