@@ -16,7 +16,7 @@ module Program =
         let builder = WebApplication.CreateBuilder(args)
 
         builder.Services.RegisterValidators()
-        //builder.Services.AddSwaggerGen()
+        builder.Services.AddSwaggerGen()
         builder.Services.AddControllers()
 
         let app = builder.Build()
@@ -25,11 +25,9 @@ module Program =
 
         app.UseAuthorization()
         app.MapControllers()
-        (*
         do
             if app.Environment.IsDevelopment() then
                 app.UseSwagger().UseSwaggerUI() |> ignore
-        *)
 
         app.Run()
 
