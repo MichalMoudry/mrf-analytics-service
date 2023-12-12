@@ -10,3 +10,4 @@ type IServiceCollection with
     member services.RegisterValidators () =
         services
             .AddScoped<IValidator<BatchStatRequest>, BatchStatRequestValidator>()
+            .AddScoped<IValidator<BatchPeriodStatRequest>, BatchPeriodStatRequestValidator>()

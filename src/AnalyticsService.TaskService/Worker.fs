@@ -1,8 +1,6 @@
 namespace AnalyticsService.TaskService
 
 open System
-open System.Collections.Generic
-open System.Linq
 open System.Threading
 open System.Threading.Tasks
 open Microsoft.Extensions.Hosting
@@ -15,5 +13,5 @@ type Worker(logger: ILogger<Worker>) =
         task {
             while not ct.IsCancellationRequested do
                 logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now)
-                do! Task.Delay(1000)
+                do! Task.Delay(TimeSpan.FromHours(1))
         }

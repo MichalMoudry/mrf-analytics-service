@@ -17,6 +17,7 @@ module Program =
 
         builder.Services.RegisterValidators()
         builder.Services.AddSwaggerGen()
+        builder.Services.AddHealthChecks()
         builder.Services.AddControllers()
 
         let app = builder.Build()
@@ -28,6 +29,7 @@ module Program =
         do
             if app.Environment.IsDevelopment() then
                 app.UseSwagger().UseSwaggerUI() |> ignore
+        app.UseHealthChecks("/health")
 
         app.Run()
 
