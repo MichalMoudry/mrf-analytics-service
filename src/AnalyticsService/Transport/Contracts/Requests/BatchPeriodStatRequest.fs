@@ -4,7 +4,7 @@ open System
 open System.Text.Json.Serialization
 
 /// A record representing a request for obtaining stats for a specific time period.
-type internal BatchPeriodStatRequest = {
+type BatchPeriodStatRequest = {
     [<JsonPropertyName("workflow_id")>]
     WorkflowId: Guid
 

@@ -21,7 +21,7 @@ module Program =
 
         let app = builder.Build()
 
-        app.UseHttpsRedirection()
+        //app.UseHttpsRedirection()
 
         app.UseAuthorization()
         app.MapControllers()

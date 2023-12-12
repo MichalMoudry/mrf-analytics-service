@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  task-service:
+    container_name: as-task-service
+    build:
+      dockerfile: ./AnalyticsService.TaskService/Dockerfile
+      context: .
