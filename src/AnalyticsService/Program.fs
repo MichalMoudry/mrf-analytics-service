@@ -12,7 +12,6 @@ module Program =
 
     [<EntryPoint>]
     let main args =
-
         let builder = WebApplication.CreateBuilder(args)
 
         builder.Services.RegisterValidators()

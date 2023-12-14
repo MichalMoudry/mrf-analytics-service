@@ -9,6 +9,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AnalyticsService", "Analyti
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AnalyticsService.TaskService", "AnalyticsService.TaskService\AnalyticsService.TaskService.fsproj", "{638758D0-8EA8-4495-BE89-857510E096EB}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AnalyticsService.Database", "AnalyticsService.Database\AnalyticsService.Database.fsproj", "{6B174B42-5D66-47BC-86DB-A2AE9E97411B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{638758D0-8EA8-4495-BE89-857510E096EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{638758D0-8EA8-4495-BE89-857510E096EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{638758D0-8EA8-4495-BE89-857510E096EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B174B42-5D66-47BC-86DB-A2AE9E97411B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B174B42-5D66-47BC-86DB-A2AE9E97411B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B174B42-5D66-47BC-86DB-A2AE9E97411B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B174B42-5D66-47BC-86DB-A2AE9E97411B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
