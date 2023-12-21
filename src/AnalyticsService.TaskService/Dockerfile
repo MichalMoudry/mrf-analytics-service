@@ -8,7 +8,7 @@ COPY ./AnalyticsService.Database ./AnalyticsService.Database
 # Restore as distinct layers
 RUN dotnet restore ./AnalyticsService.TaskService/AnalyticsService.TaskService.fsproj
 # Build and publish a release
-RUN dotnet publish ./AnalyticsService.TaskService -c Release -a arm64 -o out
+RUN dotnet publish ./AnalyticsService.TaskService -c Release -a x86 -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/runtime:8.0-alpine AS release
