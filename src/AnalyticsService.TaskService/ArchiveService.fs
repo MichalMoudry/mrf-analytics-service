@@ -6,12 +6,15 @@ open System.Threading.Tasks
 open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
 
-type Worker(logger: ILogger<Worker>) =
+type ArchiveService(logger: ILogger<ArchiveService>) =
     inherit BackgroundService()
 
     override _.ExecuteAsync(ct: CancellationToken) =
         task {
             while not ct.IsCancellationRequested do
-                logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now)
-                do! Task.Delay(TimeSpan.FromHours(1))
+                logger.LogInformation(
+                    "Worker running at: {time}",
+                    DateTimeOffset.Now
+                )
+                do! Task.Delay(TimeSpan.FromSeconds(5))
         }

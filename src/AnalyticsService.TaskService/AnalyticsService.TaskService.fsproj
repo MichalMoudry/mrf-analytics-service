@@ -4,12 +4,13 @@
         <TargetFramework>net8.0</TargetFramework>
         <UserSecretsId>dotnet-AnalyticsService.TaskService-75C01942-584E-4F71-8F52-284032085651</UserSecretsId>
         <InvariantGlobalization>true</InvariantGlobalization>
+        <PublishAot>true</PublishAot>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
 
     <ItemGroup>
-        <Compile Include="Worker.fs"/>
+        <Compile Include="ArchiveService.fs"/>
         <Compile Include="Program.fs"/>
     </ItemGroup>
 
