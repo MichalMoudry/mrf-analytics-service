@@ -8,3 +8,14 @@ type DlqItemProcessingInfo = {
     Endpoint: string
     RequestData: byte[]
 }
+
+/// Record representing all the 
+type BatchStatInfo = {
+    Id: Guid
+    StartDate: DateTimeOffset
+    EndDate: DateTimeOffset
+    NumberOfDocuments: int
+    RunTime: TimeSpan
+    Status: int
+    WorkflowId: Guid
+}

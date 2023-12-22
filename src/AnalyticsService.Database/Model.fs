@@ -3,7 +3,7 @@ namespace AnalyticsService.Database.Model
 open System
 
 /// Type representing a statistic about a single processed document batch.
-type internal BatchStat = {
+type BatchStat = {
     Id: Guid
     StartDate: DateTimeOffset
     EndDate: DateTimeOffset
@@ -15,7 +15,7 @@ type internal BatchStat = {
 }
 
 /// A record representing a dead topic that was meant for this service.
-type internal DeadTopic = {
+type DeadTopic = {
     Id: Guid
     Endpoint: string
     RequestData: byte[]

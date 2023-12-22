@@ -11,9 +11,16 @@ RUN dotnet restore ./AnalyticsService.TaskService/AnalyticsService.TaskService.f
 RUN dotnet publish ./AnalyticsService.TaskService -c Release -a x64 -o out
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/runtime:8.0-alpine AS release
+# Possible images to use:
+# :8.0-jammy-chiseled
+FROM mcr.microsoft.com/dotnet/runtime:8.0-jammy-chiseled AS release
 WORKDIR /app
-COPY --from=build-env /app/out .
+# Copy persistance layer library artifacts
+COPY --from=build-env /app/out/AnalyticsService.Database* .
+# Copy settings
+COPY --from=build-env /app/out/appsettings* .
+# Copy task service
+COPY --from=build-env /app/out/AnalyticsService.TaskService .
 
 ENTRYPOINT [ "/app/AnalyticsService.TaskService" ]
 #ENTRYPOINT ["tail", "-f", "/dev/null"]
