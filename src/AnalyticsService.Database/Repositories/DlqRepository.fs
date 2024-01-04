@@ -15,11 +15,20 @@ type DlqRepository =
                 for _ in this.dlqTable do
                 selectAll
             } |> conn.SelectAsync<DlqItemProcessingInfo>
-    member private _.dlqTable = table'<DeadTopic> "DLQ"
 
-    member this.NewDlqItem deadtopc (conn: IDbConnection) =
-        task {
-            conn.Open()
-            use transaction = conn.BeginTransaction()
-            transaction.Commit()
-        }
+        /// <inheritdoc/>
+        member this.NewDlqItem deadtopc (conn: IDbConnection) =
+            task {
+                conn.Open()
+                use transaction = conn.BeginTransaction()
+                conn.InsertAsync(
+                    insert {
+                        into this.dlqTable
+                        value deadtopc
+                    },
+                    transaction
+                ) |> Async.AwaitTask |> Async.RunSynchronously |> ignore
+                transaction.Commit()
+            }
+
+    member private _.dlqTable = table'<DeadTopic> "DLQ"

@@ -1,5 +1,6 @@
 namespace AnalyticsService.Database.Repositories
 
+open System
 open System.Data
 open AnalyticsService.Database.Api
 open AnalyticsService.Database.Model
@@ -31,4 +32,16 @@ module BatchStatRepository =
             for stat in statTable do
                 where (stat.WorkflowId = workflowId)
                 selectAll
+        } |> conn.SelectAsync<BatchStatInfo>
+
+    /// Method for obtaining records/stats of a specific application for a specific period.
+    let getStatsForPeriod
+        workflowId
+        (startDate: DateTimeOffset)
+        (period: TimeSpan)
+        (conn: IDbConnection) =
+        let endDate = startDate.Add(period)
+        select {
+            for stat in statTable do
+            where (stat.WorkflowId = workflowId && stat.Created >= startDate && stat.Created <= endDate)
         } |> conn.SelectAsync<BatchStatInfo>

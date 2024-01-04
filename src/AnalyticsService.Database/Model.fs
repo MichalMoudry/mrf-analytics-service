@@ -6,7 +6,6 @@ open System
 type BatchStat = {
     Id: Guid
     StartDate: DateTimeOffset
-    EndDate: DateTimeOffset
     NumberOfDocuments: int
     RunTime: TimeSpan
     Status: int

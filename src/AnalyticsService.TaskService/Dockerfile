@@ -1,4 +1,5 @@
 ﻿FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+ARG TARGET_PLATFORM=x64
 WORKDIR /app
 RUN apt update
 RUN apt install -y clang zlib1g-dev
@@ -8,7 +9,7 @@ COPY ./AnalyticsService.Database ./AnalyticsService.Database
 # Restore as distinct layers
 RUN dotnet restore ./AnalyticsService.TaskService/AnalyticsService.TaskService.fsproj
 # Build and publish a release
-RUN dotnet publish ./AnalyticsService.TaskService -c Release -a x64 -o out
+RUN dotnet publish ./AnalyticsService.TaskService -c Release -a $TARGET_PLATFORM -o out
 
 # Build runtime image
 # Possible images to use:
