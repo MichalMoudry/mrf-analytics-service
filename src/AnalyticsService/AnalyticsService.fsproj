@@ -3,11 +3,15 @@
     <TargetFramework>net8.0</TargetFramework>
 
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <UseSystemResourceKeys>true</UseSystemResourceKeys>
+    <!--
+    <PublishSingleFile>true</PublishSingleFile>
     <PublishTrimmed>true</PublishTrimmed>
     <TrimMode>partial</TrimMode>
     <UseSystemResourceKeys>true</UseSystemResourceKeys>
-    <PublishSingleFile>true</PublishSingleFile>
     <InvariantGlobalization>true</InvariantGlobalization>
+    -->
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Domain/*.fs" />

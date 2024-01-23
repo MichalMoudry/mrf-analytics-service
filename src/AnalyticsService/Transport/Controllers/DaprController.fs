@@ -11,9 +11,9 @@ open Microsoft.AspNetCore.Http
 type DaprController() =
     inherit ControllerBase()
 
-    [<HttpPost>]
     [<Topic("pub-sub", "batch-finish-stat", false, DeadLetterTopic = "analytics-poison-messages")>]
+    [<HttpPost>]
     member _.ReceiveBatchStat ([<FromBody>] request: CloudEvent<BatchStatRequest>) =
         task {
-            return Results.Ok
+            return Results.Ok()
         }

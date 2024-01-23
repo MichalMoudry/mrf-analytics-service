@@ -31,4 +31,6 @@ type DlqRepository =
                 transaction.Commit()
             }
 
+        member this.DeleteDlqItems(_) _ = failwith "todo"
+
     member private _.dlqTable = table'<DeadTopic> "DLQ"
