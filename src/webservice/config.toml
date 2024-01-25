@@ -1,3 +1,0 @@
-port = 8080
-env = "[dev]"
-db_string = "postgres://root:root@localhost:5432/serv-db?sslmode=disable"
