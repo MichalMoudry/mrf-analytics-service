@@ -1,9 +1,14 @@
-﻿namespace AnalyticsService.Database;
+﻿using System.Data;
+using Npgsql;
+
+namespace AnalyticsService.Database;
 
 public static class Context
 {
-    public static void GetDbConnection()
+    // Method for creating a new DB connection.
+    public static IDbConnection GetDbConnection(string? connectionString)
     {
-        Console.WriteLine("Test");
+        ArgumentNullException.ThrowIfNull(connectionString, nameof(connectionString));
+        return new NpgsqlConnection(connectionString);
     }
 }
