@@ -7,7 +7,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.28" />
     <PackageReference Include="Npgsql" Version="8.0.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <InternalsVisibleTo Include="AnalyticsService.UnitTests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Queries\Query.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Query.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Queries\Query.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Query.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>
