@@ -13,6 +13,7 @@ var connectionString = builder.Environment.IsDevelopment()
 // Adding services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHealthChecks();
 builder.Services.AddTransient<IDbConnection>(
     _ => new ConnectionBuilder()
         .SetConnectionString(connectionString)
@@ -27,5 +28,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseHealthChecks("/health");
 
 app.Run();
