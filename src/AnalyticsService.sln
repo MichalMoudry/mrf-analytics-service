@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyticsService", "AnalyticsService\AnalyticsService.csproj", "{FB7D4188-225E-47D1-B2F4-1EF02951DD76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyticsService.TaskRunner", "AnalyticsService.TaskRunner\AnalyticsService.TaskRunner.csproj", "{CAF473BD-9565-4684-9921-3205E6F3E0DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyticsService.TaskService", "AnalyticsService.TaskService\AnalyticsService.TaskService.csproj", "{CAF473BD-9565-4684-9921-3205E6F3E0DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyticsService.UnitTests", "AnalyticsService.UnitTests\AnalyticsService.UnitTests.csproj", "{01CD025C-6557-4A5D-BCAD-F6DF7D210535}"
 EndProject

@@ -1,8 +1,12 @@
 using System.Data;
+using AnalyticsService;
 using AnalyticsService.Database;
+using AnalyticsService.Transport.Contracts.Requests;
+using Dapr;
+using FluentValidation;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
-Console.WriteLine("Hello from analytics service! ʕ•ᴥ•ʔ");
 
 // Configuration
 builder.WebHost.ConfigureKestrel(cfg => cfg.AddServerHeader = false);
@@ -19,6 +23,9 @@ builder.Services.AddTransient<IDbConnection>(
         .SetConnectionString(connectionString)
         .Build()
 );
+builder.Services
+    .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly))
+    .AddValidators();
 
 var app = builder.Build();
 
@@ -30,4 +37,15 @@ if (app.Environment.IsDevelopment())
 }
 app.UseHealthChecks("/health");
 
+app.MapPost("/dapr", async (IValidator<BatchStatRequest> validator, IMediator mediator, CloudEvent<BatchStatRequest> request) =>
+{
+    var validationResult = await validator.ValidateAsync(request.Data);
+    if (!validationResult.IsValid)
+    {
+        return Results.ValidationProblem(validationResult.ToDictionary());
+    }
+    return Results.Ok(request);
+});
+
+app.Logger.LogInformation("Hello from analytics service! ʕ•ᴥ•ʔ");
 app.Run();

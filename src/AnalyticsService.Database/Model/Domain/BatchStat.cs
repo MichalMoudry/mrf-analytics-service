@@ -9,11 +9,17 @@ public sealed class BatchStat : Entity
 
     public DateTimeOffset EndDate { get; init; }
 
-    public uint NumberOfDocuments { get; init; }
+    public int NumberOfDocuments { get; init; }
 
-    public TimeSpan RunTime { get; init; }
+    public TimeSpan RunTime => EndDate - StartDate;
 
     public short Status { get; init; }
 
     public Guid WorkflowId { get; init; }
+
+    public BatchStat()
+    {
+        Id = Guid.NewGuid();
+        DateAdded = DateTimeOffset.Now;
+    }
 }
