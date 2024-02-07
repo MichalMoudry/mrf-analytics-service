@@ -1,10 +1,7 @@
 using System.Data;
 using AnalyticsService;
-using AnalyticsService.Database;
-using AnalyticsService.Transport.Contracts.Requests;
-using Dapr;
-using FluentValidation;
-using MediatR;
+using AnalyticsService.Database.Api;
+using AnalyticsService.Transport;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,11 +15,8 @@ var connectionString = builder.Environment.IsDevelopment()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
-builder.Services.AddTransient<IDbConnection>(
-    _ => new ConnectionBuilder()
-        .SetConnectionString(connectionString)
-        .Build()
-);
+//builder.Services.AddRepositories();
+builder.Services.AddTransient<IDbConnection>(_ => Connector.GetConnection(connectionString));
 builder.Services
     .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly))
     .AddValidators();
@@ -37,15 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseHealthChecks("/health");
 
-app.MapPost("/dapr", async (IValidator<BatchStatRequest> validator, IMediator mediator, CloudEvent<BatchStatRequest> request) =>
-{
-    var validationResult = await validator.ValidateAsync(request.Data);
-    if (!validationResult.IsValid)
-    {
-        return Results.ValidationProblem(validationResult.ToDictionary());
-    }
-    return Results.Ok(request);
-});
+Handler.Initialize(app);
 
 app.Logger.LogInformation("Hello from analytics service! ʕ•ᴥ•ʔ");
 app.Run();
