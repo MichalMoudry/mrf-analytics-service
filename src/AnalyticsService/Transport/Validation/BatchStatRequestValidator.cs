@@ -12,7 +12,7 @@ internal sealed class BatchStatRequestValidator : AbstractValidator<BatchStatReq
     {
         RuleFor(i => i.StartDate).NotEmpty();
         RuleFor(i => i.EndDate).NotEmpty().GreaterThan(i => i.StartDate);
-        RuleFor(i => i.Status).NotEmpty();
+        RuleFor(i => i.Status).NotEmpty().IsInEnum();
         RuleFor(i => i.NumberOfDocuments).GreaterThan(0);
     }
 }

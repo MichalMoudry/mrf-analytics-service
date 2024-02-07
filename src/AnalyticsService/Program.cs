@@ -14,7 +14,7 @@ var connectionString = builder.Environment.IsDevelopment()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
-//builder.Services.AddRepositories();
+builder.Services.AddRepositories();
 builder.Services.AddTransient(_ => Connector.GetConnection(connectionString));
 builder.Services
     .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly))

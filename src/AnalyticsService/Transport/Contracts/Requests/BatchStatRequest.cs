@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using AnalyticsService.Database.Model.Domain;
 
 namespace AnalyticsService.Transport.Contracts.Requests;
 
@@ -9,6 +10,6 @@ internal sealed record BatchStatRequest(
     [property: JsonPropertyName("start_date")] DateTimeOffset StartDate,
     [property: JsonPropertyName("end_date")] DateTimeOffset EndDate,
     [property: JsonPropertyName("number_of_documents")] int NumberOfDocuments,
-    [property: JsonPropertyName("status")] int Status,
+    [property: JsonPropertyName("status")] BatchStatus Status,
     [property: JsonPropertyName("workflow_id")] Guid WorkflowId
 );
