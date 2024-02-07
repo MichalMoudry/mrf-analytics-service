@@ -13,7 +13,7 @@ public sealed class BatchStat : Entity
 
     public TimeSpan RunTime => EndDate - StartDate;
 
-    public short Status { get; init; }
+    public BatchStatus Status { get; init; }
 
     public Guid WorkflowId { get; init; }
 

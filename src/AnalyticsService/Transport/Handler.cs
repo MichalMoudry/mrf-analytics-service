@@ -8,6 +8,9 @@ namespace AnalyticsService.Transport;
 
 internal static class Handler
 {
+    /// <summary>
+    /// A method for mapping endpoints to a web application.
+    /// </summary>
     public static void Initialize(WebApplication app)
     {
         app.MapPost("/dapr", async (IValidator<BatchStatRequest> validator, IMediator mediator, CloudEvent<BatchStatRequest> request) =>

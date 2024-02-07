@@ -5,7 +5,6 @@ using AnalyticsService.Transport;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuration
 builder.WebHost.ConfigureKestrel(cfg => cfg.AddServerHeader = false);
 var connectionString = builder.Environment.IsDevelopment()
     ? builder.Configuration["DbConnection"]
@@ -16,7 +15,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 //builder.Services.AddRepositories();
-builder.Services.AddTransient<IDbConnection>(_ => Connector.GetConnection(connectionString));
+builder.Services.AddTransient(_ => Connector.GetConnection(connectionString));
 builder.Services
     .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly))
     .AddValidators();

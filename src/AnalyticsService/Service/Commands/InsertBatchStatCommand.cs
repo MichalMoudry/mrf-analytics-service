@@ -1,3 +1,4 @@
+using AnalyticsService.Database.Model.Domain;
 using MediatR;
 
 namespace AnalyticsService.Service.Commands;
@@ -9,6 +10,6 @@ internal sealed record InsertBatchStatCommand(
     DateTimeOffset StartDate,
     DateTimeOffset EndDate,
     int DocsNumber,
-    //BatchStatus Status,
+    BatchStatus Status,
     Guid WorkflowId
 ) : IRequest<bool>;
