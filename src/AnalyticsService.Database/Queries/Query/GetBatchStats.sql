@@ -7,3 +7,5 @@ SELECT
     b.Status
 FROM
     BatchStats as b
+WHERE
+    b.WorkflowId = @WorkflowId

@@ -1,5 +1,6 @@
 using System.Data;
 using AnalyticsService.Database.Model.Domain;
+using AnalyticsService.Database.Model.Dto;
 
 namespace AnalyticsService.Database.Api;
 
@@ -16,7 +17,7 @@ public interface IBatchStatRepository
     /// <summary>
     /// Method for obtaining records/stats for a specific workflow.
     /// </summary>
-    Task GetBatchStats(IDbConnection conn, Guid workflowId);
+    Task<IEnumerable<BatchStatInfo>> GetBatchStats(IDbConnection conn, Guid workflowId);
 
     /// <summary>
     /// Method for obtaining records/stats of a specific application for a specific period.
@@ -24,5 +25,5 @@ public interface IBatchStatRepository
     /// <param name="conn">A connection to a database.</param>
     /// <param name="startDate">Date from which stats should be considered.</param>
     /// <param name="period">Period for which stats should be considered.</param>
-    Task GetBatchStats(IDbConnection conn, DateTimeOffset startDate, TimeSpan period);
+    Task<IEnumerable<BatchStatInfo>> GetBatchStats(IDbConnection conn, DateTimeOffset startDate, TimeSpan period);
 }

@@ -1,4 +1,3 @@
-using System.Data;
 using AnalyticsService;
 using AnalyticsService.Database.Api;
 using AnalyticsService.Transport;

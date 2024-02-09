@@ -21,10 +21,7 @@ public sealed class DlqRepository : IDlqRepository
 
     /// <inheritdoc/>
     public Task<IEnumerable<DeadTopicInfo>> GetDlqItems(IDbConnection conn, int limit = 1_000)
-    {
-        conn.Open();
-        return conn.QueryAsync<DeadTopicInfo>(Query.GetDlqItems);
-    }
+        => conn.QueryAsync<DeadTopicInfo>(Query.GetDlqItems);
 
     /// <inheritdoc/>
     public async Task DeleteDlqItems(IDbConnection conn, IEnumerable<Guid> ids)

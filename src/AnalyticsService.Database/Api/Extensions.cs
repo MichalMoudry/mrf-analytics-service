@@ -11,6 +11,7 @@ public static class Extensions
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         return services
-            .AddSingleton<IDlqRepository, DlqRepository>();
+            .AddSingleton<IDlqRepository, DlqRepository>()
+            .AddSingleton<IBatchStatRepository, BatchStatRepository>();
     }
 }
