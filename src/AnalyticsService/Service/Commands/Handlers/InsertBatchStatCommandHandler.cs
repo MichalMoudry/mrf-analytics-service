@@ -9,7 +9,8 @@ namespace AnalyticsService.Service.Commands.Handlers;
 /// A handler for inserting a new batch stat to the database.
 /// </summary>
 internal sealed class InsertBatchStatCommandHandler(
-    IDbConnection connection)
+    IDbConnection connection,
+    IBatchStatRepository batchStatRepository)
     : IRequestHandler<InsertBatchStatCommand, bool>
 {
     public async Task<bool> Handle(InsertBatchStatCommand request, CancellationToken cancellationToken)
@@ -19,7 +20,7 @@ internal sealed class InsertBatchStatCommandHandler(
             return false;
         }
 
-        /*await statRepository.AddNewBatchStat(
+        await batchStatRepository.AddNewBatchStat(
             connection,
             new BatchStat
             {
@@ -28,8 +29,7 @@ internal sealed class InsertBatchStatCommandHandler(
                 NumberOfDocuments = request.DocsNumber,
                 WorkflowId = request.WorkflowId
             }
-        );*/
-        await Task.Delay(1000, cancellationToken);
+        );
         return true;
     }
 }

@@ -6,6 +6,6 @@ SELECT
     b.RunTime,
     b.Status
 FROM
-    BatchStats as b
+    "BatchStats" as b
 WHERE
     b.WorkflowId = @WorkflowId

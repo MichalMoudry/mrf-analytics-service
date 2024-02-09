@@ -1,3 +1,3 @@
 INSERT INTO
-    BatchStats
-VALUES (@Id, @StartDate, @EndDate, @NumberOfDocuments, @RunTime, @Status, @WorkflowId, @Created)
+    "BatchStats"
+VALUES (@Id, @StartDate, @EndDate, @NumberOfDocuments, @RunTime, @Status, @WorkflowId, @DateAdded)

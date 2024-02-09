@@ -8,8 +8,43 @@ services:
       context: .
     ports:
       - "8080:8080"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
   task-service:
     container_name: as-task-service
     build:
       dockerfile: ./AnalyticsService.TaskService/Dockerfile
       context: .
+  db:
+    image: postgres:15
+    container_name: analytics-db
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: analytics-db
+      PGUSER: root
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "analytics-db"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+  migrate:
+    image: migrate/migrate
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./AnalyticsService.Database/Migrations:/migrations
+    command:
+      [ "-path", "/migrations", "-database", "postgres://root:root@db:5432/analytics-db?sslmode=disable", "up"]
+
+volumes:
+  pgdata:

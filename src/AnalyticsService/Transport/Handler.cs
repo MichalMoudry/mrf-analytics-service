@@ -1,4 +1,5 @@
 using AnalyticsService.Service.Commands;
+using AnalyticsService.Service.Queries;
 using AnalyticsService.Transport.Contracts.Requests;
 using Dapr;
 using FluentValidation;
@@ -32,13 +33,23 @@ internal static class Handler
             return res ? TypedResults.Ok() : TypedResults.BadRequest();
         })
         .WithName("PostBatchStatistic")
+        .WithDescription("Endpoint for receiving results of processed document batches.")
         .WithOpenApi();
 
-        app.MapGet("/batch-analytics", ([FromQuery(Name = "workflow_id")] Guid workflowId, IMediator mediator) =>
+        app.MapGet(
+            "/batch-analytics/{workflowId:guid}",
+            async (Guid workflowId, IMediator mediator)
+                => TypedResults.Ok(await mediator.Send(new GetGenericStatsQuery(workflowId)))
+        )
+        .WithName("GetBatchStatistics")
+        .WithOpenApi();
+
+        app.MapGet("/batch-analytics/period", ([FromBody] BatchPeriodStatRequest request, IMediator mediator) =>
         {
             return TypedResults.Ok();
         })
-        .WithName("GetBatchStatistics")
+        .WithName("GetBatchStatisticsForPeriod")
+        .WithDescription("Endpoint for receiving statistics about document batch for a specified period.")
         .WithOpenApi();
     }
 }

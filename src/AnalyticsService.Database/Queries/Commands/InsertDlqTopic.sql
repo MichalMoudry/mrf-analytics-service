@@ -1,3 +1,3 @@
 INSERT INTO
-    DLQ
+    "DLQ"
 VALUES (@Id, @Endpoint, @RequestData, @Source, @DateAdded)

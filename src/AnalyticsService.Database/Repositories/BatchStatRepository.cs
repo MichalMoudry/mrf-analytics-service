@@ -24,7 +24,6 @@ public sealed class BatchStatRepository : IBatchStatRepository
     {
         conn.Open();
         return conn.QueryAsync<BatchStatInfo>(Query.GetBatchStats, workflowId);
-        throw new NotImplementedException();
     }
 
     /// <inheritdoc/>

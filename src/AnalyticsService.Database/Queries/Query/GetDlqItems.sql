@@ -3,4 +3,4 @@ SELECT
     d.Endpoint,
     d.RequestData
 FROM
-    DLQ as d
+    "DLQ" as d
