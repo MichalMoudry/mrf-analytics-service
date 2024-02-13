@@ -5,9 +5,9 @@ namespace AnalyticsService.Database.Model.Domain;
 /// </summary>
 public sealed class BatchStat : Entity
 {
-    public DateTimeOffset StartDate { get; init; }
+    public DateTime StartDate { get; init; }
 
-    public DateTimeOffset EndDate { get; init; }
+    public DateTime EndDate { get; init; }
 
     public int NumberOfDocuments { get; init; }
 
@@ -20,6 +20,6 @@ public sealed class BatchStat : Entity
     public BatchStat()
     {
         Id = Guid.NewGuid();
-        DateAdded = DateTimeOffset.Now;
+        DateAdded = DateTime.UtcNow;
     }
 }

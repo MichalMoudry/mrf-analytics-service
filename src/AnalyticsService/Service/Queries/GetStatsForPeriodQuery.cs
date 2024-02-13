@@ -10,4 +10,4 @@ internal sealed record GetStatsForPeriodQuery(
     Guid WorkflowId,
     DateTimeOffset StartDate,
     TimeSpan Period
-) : IRequest<GeneralBatchStats>;
+) : IRequest<GeneralBatchStat>;

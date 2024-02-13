@@ -2,13 +2,13 @@ BEGIN;
 
 CREATE TABLE "BatchStats" (
     "Id" UUID PRIMARY KEY,
-    "StartDate" TIMESTAMP NOT NULL,
-    "EndDate" TIMESTAMP NOT NULL,
+    "StartDate" TIMESTAMP WITH TIME ZONE NOT NULL,
+    "EndDate" TIMESTAMP WITH TIME ZONE NOT NULL,
     "NumberOfDocuments" INTEGER NOT NULL,
     "RunTime" INTERVAL NOT NULL,
     "Status" SMALLINT NOT NULL,
     "WorkflowId" UUID NOT NULL,
-    "Created" TIMESTAMP NOT NULL
+    "Created" TIMESTAMP WITH TIME ZONE NOT NULL
 );
 
 CREATE TABLE "DLQ" (
@@ -16,7 +16,7 @@ CREATE TABLE "DLQ" (
     "Endpoint" VARCHAR(255) NOT NULL,
     "RequestData" BYTEA NOT NULL,
     "Source" VARCHAR(128) NOT NULL,
-    "DateAdded" TIMESTAMP NOT NULL
+    "DateAdded" TIMESTAMP WITH TIME ZONE NOT NULL
 );
 
 COMMIT;

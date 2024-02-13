@@ -23,7 +23,7 @@ public sealed class BatchStatRepository : IBatchStatRepository
     public Task<IEnumerable<BatchStatInfo>> GetBatchStats(IDbConnection conn, Guid workflowId)
     {
         conn.Open();
-        return conn.QueryAsync<BatchStatInfo>(Query.GetBatchStats, workflowId);
+        return conn.QueryAsync<BatchStatInfo>(Query.GetBatchStats, new { WorkflowId = workflowId });
     }
 
     /// <inheritdoc/>

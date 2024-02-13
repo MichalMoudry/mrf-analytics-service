@@ -8,4 +8,4 @@ namespace AnalyticsService.Service.Queries;
 /// </summary>
 internal sealed record GetGenericStatsQuery(
     Guid WorkflowId
-) : IRequest<IEnumerable<GeneralBatchStats>>;
+) : IRequest<GeneralBatchStat>;

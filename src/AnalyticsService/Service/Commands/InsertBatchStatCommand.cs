@@ -7,8 +7,8 @@ namespace AnalyticsService.Service.Commands;
 /// Command for inserting a new stat to the database.
 /// </summary>
 internal sealed record InsertBatchStatCommand(
-    DateTimeOffset StartDate,
-    DateTimeOffset EndDate,
+    DateTime StartDate,
+    DateTime EndDate,
     int DocsNumber,
     BatchStatus Status,
     Guid WorkflowId

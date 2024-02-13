@@ -27,7 +27,8 @@ internal sealed class InsertBatchStatCommandHandler(
                 StartDate = request.StartDate,
                 EndDate = request.EndDate,
                 NumberOfDocuments = request.DocsNumber,
-                WorkflowId = request.WorkflowId
+                WorkflowId = request.WorkflowId,
+                Status = request.Status
             }
         );
         return true;

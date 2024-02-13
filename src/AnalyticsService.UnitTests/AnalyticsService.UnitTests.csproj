@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AnalyticsService.Database\AnalyticsService.Database.csproj" />
+    <ProjectReference Include = "..\AnalyticsService\AnalyticsService.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,5 +13,5 @@ public abstract class Entity
     /// <summary>
     /// The time when entity was created in the system.
     /// </summary>
-    public DateTimeOffset DateAdded { get; init; }
+    public DateTime DateAdded { get; init; }
 }
