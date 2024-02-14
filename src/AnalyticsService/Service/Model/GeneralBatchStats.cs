@@ -7,4 +7,7 @@ internal sealed record GeneralBatchStat(
     int AvgNumberOfDocuments,
     float SuccessRate,
     TimeSpan AvgDuration
-);
+)
+{
+    public static GeneralBatchStat Default => new(0, 0, TimeSpan.Zero);
+};

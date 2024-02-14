@@ -25,5 +25,5 @@ public interface IBatchStatRepository
     /// <param name="conn">A connection to a database.</param>
     /// <param name="startDate">Date from which stats should be considered.</param>
     /// <param name="period">Period for which stats should be considered.</param>
-    Task<IEnumerable<BatchStatInfo>> GetBatchStats(IDbConnection conn, DateTimeOffset startDate, TimeSpan period);
+    Task<IEnumerable<BatchStatInfo>> GetBatchStats(IDbConnection conn, DateTime startDate, TimeSpan period);
 }

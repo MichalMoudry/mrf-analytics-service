@@ -1,6 +1,7 @@
 using AnalyticsService.Service.Commands;
 using AnalyticsService.Service.Queries;
 using AnalyticsService.Transport.Contracts.Requests;
+using AnalyticsService.Transport.Contracts.Responses;
 using Dapr;
 using FluentValidation;
 using MediatR;
@@ -23,12 +24,10 @@ internal static class Handler
             async (IValidator<BatchStatRequest> validator, IMediator mediator, CloudEvent<BatchStatRequest> request) =>
             {
                 var validationResult = await validator.ValidateAsync(request.Data);
-                /*var validationResult = await validator.ValidateAsync(request.Data);
                 if (!validationResult.IsValid)
                 {
-                    //return TypedResults.ValidationProblem(validationResult.ToDictionary());
+                    return TypedResults.ValidationProblem(validationResult.ToDictionary());
                 }
-
                 var res = await mediator.Send(new InsertBatchStatCommand(
                     request.Data.StartDate,
                     request.Data.EndDate,
@@ -36,7 +35,7 @@ internal static class Handler
                     request.Data.Status,
                     request.Data.WorkflowId
                 ));
-                return res ? TypedResults.Ok() : TypedResults.BadRequest();*/
+                return (IResult)(res ? TypedResults.Ok() : TypedResults.Problem());
             }
         )
         .WithName("PostBatchStatistic")
@@ -50,7 +49,7 @@ internal static class Handler
             async (HttpRequest request, [FromServices] IMediator mediator) =>
             {
                 var res = await mediator.Send(new InsertDlqEntryCommand(request.Body));
-                return TypedResults.Ok(res);
+                return (IResult)(res ? TypedResults.Ok() : TypedResults.Problem());
             }
         )
         .WithName("PoisonedMessages")
@@ -67,9 +66,14 @@ internal static class Handler
         .WithTags("Statistics")
         .WithOpenApi();
 
-        app.MapGet("/batch-analytics/period", ([FromBody] BatchPeriodStatRequest request, IMediator mediator) =>
+        app.MapGet("/batch-analytics/period", async ([FromBody] BatchPeriodStatRequest request, IMediator mediator) =>
         {
-            return TypedResults.Ok();
+            var stats = await mediator.Send(new GetStatsForPeriodQuery(
+                request.WorkflowId,
+                request.StartDate,
+                request.EndDate - request.StartDate
+            ));
+            return TypedResults.Ok(new StatisticResponse(stats));
         })
         .WithName("GetBatchStatisticsForPeriod")
         .WithDescription("Endpoint for receiving statistics about document batch for a specified period.")

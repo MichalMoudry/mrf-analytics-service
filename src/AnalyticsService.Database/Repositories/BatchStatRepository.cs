@@ -27,7 +27,10 @@ public sealed class BatchStatRepository : IBatchStatRepository
     }
 
     /// <inheritdoc/>
-    public Task<IEnumerable<BatchStatInfo>> GetBatchStats(IDbConnection conn, DateTimeOffset startDate, TimeSpan period)
+    public Task<IEnumerable<BatchStatInfo>> GetBatchStats(
+        IDbConnection conn,
+        DateTime startDate,
+        TimeSpan period)
     {
         throw new NotImplementedException();
     }

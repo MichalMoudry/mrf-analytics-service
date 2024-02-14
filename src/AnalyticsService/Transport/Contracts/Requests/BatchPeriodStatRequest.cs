@@ -9,7 +9,7 @@ internal sealed record BatchPeriodStatRequest(
     [property: JsonPropertyName("workflow_id")]
     Guid WorkflowId,
     [property: JsonPropertyName("start_date")]
-    DateTimeOffset StartDate,
+    DateTime StartDate,
     [property: JsonPropertyName("end_date")]
-    DateTimeOffset EndDate
+    DateTime EndDate
 );

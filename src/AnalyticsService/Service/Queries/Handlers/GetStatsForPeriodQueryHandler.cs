@@ -6,23 +6,34 @@ using MediatR;
 namespace AnalyticsService.Service.Queries.Handlers;
 
 /// <summary>
-/// A handler for retrieving generic stats about all document batches in a specified workflow.
+/// A handler class for obtaining general app stats for a period.
 /// </summary>
-internal sealed class GetGenericStatsQueryHandler(
-    IDbConnection conn,
-    IBatchStatRepository batchStatRepository)
-    : IRequestHandler<GetGenericStatsQuery, GeneralBatchStat>
+internal sealed class GetStatsForPeriodQueryHandler : IRequestHandler<GetStatsForPeriodQuery, GeneralBatchStat>
 {
+    private readonly IDbConnection _dbConnection;
+
+    private readonly IBatchStatRepository _batchStatRepository;
+
+    public GetStatsForPeriodQueryHandler(IDbConnection conn, IBatchStatRepository repo)
+    {
+        _dbConnection = conn;
+        _batchStatRepository = repo;
+    }
+
     /// <inheritdoc/>
-    public async Task<GeneralBatchStat> Handle(GetGenericStatsQuery request, CancellationToken cancellationToken)
+    public async Task<GeneralBatchStat> Handle(GetStatsForPeriodQuery request, CancellationToken cancellationToken)
     {
         if (cancellationToken.IsCancellationRequested)
+        {
             return GeneralBatchStat.Default;
-        var stats = (await batchStatRepository
-            .GetBatchStats(conn, request.WorkflowId))
+        }
+        var stats = (await _batchStatRepository
+            .GetBatchStats(_dbConnection, request.StartDate, request.Period))
             .ToList();
         if (stats.Count == 0)
+        {
             return GeneralBatchStat.Default;
+        }
 
         var successRate = CalculateSuccessRate(
             stats.Count,

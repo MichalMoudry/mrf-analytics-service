@@ -8,6 +8,6 @@ namespace AnalyticsService.Service.Queries;
 /// </summary>
 internal sealed record GetStatsForPeriodQuery(
     Guid WorkflowId,
-    DateTimeOffset StartDate,
+    DateTime StartDate,
     TimeSpan Period
 ) : IRequest<GeneralBatchStat>;
