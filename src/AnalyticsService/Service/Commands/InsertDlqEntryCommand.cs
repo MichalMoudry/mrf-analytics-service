@@ -1,3 +1,4 @@
+using System.Text.Json;
 using MediatR;
 
 namespace AnalyticsService.Service.Commands;
@@ -6,5 +7,5 @@ namespace AnalyticsService.Service.Commands;
 /// Command for inserting a new entry into the DLQ table.
 /// </summary>
 internal sealed record InsertDlqEntryCommand(
-    Stream RequestBody
+    JsonElement RequestBody
 ) : IRequest<bool>;

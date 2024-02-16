@@ -1,3 +1,4 @@
+using System.Text.Json;
 using AnalyticsService.Service.Commands;
 using AnalyticsService.Service.Queries;
 using AnalyticsService.Transport.Contracts.Requests;
@@ -46,9 +47,9 @@ internal static class Handler
         app.MapPost(
             "/failed-messages",
             [Topic(PubSubName, "statistic-poison")]
-            async (HttpRequest request, [FromServices] IMediator mediator) =>
+            async ([FromBody] JsonElement incomingObject, IMediator mediator) =>
             {
-                var res = await mediator.Send(new InsertDlqEntryCommand(request.Body));
+                var res = await mediator.Send(new InsertDlqEntryCommand(incomingObject));
                 return (IResult)(res ? TypedResults.Ok() : TypedResults.Problem());
             }
         )
