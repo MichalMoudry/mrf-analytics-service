@@ -29,16 +29,9 @@ internal sealed class DlqWorker : BackgroundService
             if (_logger.IsEnabled(LogLevel.Information))
             {
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                _logger.LogInformation("Dlq length: {length}", dlqItems.Count());
             }
 
-            foreach (var dlqItem in dlqItems)
-            {
-                _logger.LogInformation(
-                    "DLQ item: {id}\n\t- endpoint: {endpoint}",
-                    dlqItem.Id,
-                    dlqItem.Endpoint
-                );
-            }
             await Task.Delay(5_000, stoppingToken);
         }
     }

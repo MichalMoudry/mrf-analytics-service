@@ -10,4 +10,4 @@ internal sealed record GeneralBatchStat(
 )
 {
     public static GeneralBatchStat Default => new(0, 0, TimeSpan.Zero);
-};
+}

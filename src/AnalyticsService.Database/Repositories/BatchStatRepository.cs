@@ -13,6 +13,10 @@ public sealed class BatchStatRepository : IBatchStatRepository
     /// <inheritdoc/>
     public async Task AddNewBatchStat(IDbConnection conn, BatchStat stat)
     {
+        /*var parameters = new DynamicParameters();
+        parameters.Add("@Id", stat.Id);
+        parameters.Add("@StartDate", stat.StartDate);*/
+
         conn.Open();
         using var transaction = conn.BeginTransaction();
         await conn.ExecuteAsync(Query.InsertBatchStat, stat);

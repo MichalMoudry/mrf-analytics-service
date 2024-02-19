@@ -14,10 +14,15 @@ services:
       db:
         condition: service_healthy
   task-service:
-    container_name: as-task-service
+    container_name: task-service
     build:
       dockerfile: ./AnalyticsService.TaskService/Dockerfile
       context: .
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
   db:
     image: postgres:15
     container_name: analytics-db
