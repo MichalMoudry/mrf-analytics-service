@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper.FSharp" Version="4.7.0" />
+    <PackageReference Include="Npgsql" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Model\Domain\*.fs" />
+    <Compile Include="Model\Dto\*.fs" />
+    <Compile Include="Model\DatabaseCtx.fs" />
+    <Compile Include="Repositories\I*.fs" />
+    <Compile Include="Repositories\BatchStatRepository.fs" />
+    <Compile Include="Repositories\DlqRepository.fs" />
+    <Compile Include="Api\Connector.fs" />
+    <Compile Include="Api\Extensions.fs" />
+    <Content Include="Migrations\001_init_migration.up.sql" />
+    <Content Include="Migrations\001_init_migration.down.sql" />
+  </ItemGroup>
+
+</Project>

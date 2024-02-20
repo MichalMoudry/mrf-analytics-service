@@ -4,7 +4,7 @@ services:
   app:
     container_name: analytics-service
     build:
-      dockerfile: ./AnalyticsService/Dockerfile
+      dockerfile: ./AnalyticsService.Web.Api/Dockerfile
       context: .
     ports:
       - "8080:8080"
