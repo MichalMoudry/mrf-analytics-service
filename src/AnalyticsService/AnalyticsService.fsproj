@@ -6,11 +6,8 @@
 
   <ItemGroup>
     <Compile Include="Service\Model\*.fs" />
-    <Compile Include="Transport\Contracts\Requests\*.fs" />
-    <Compile Include="Transport\Contracts\Responses\*.fs" />
-    <Compile Include="Transport\Validation\*.fs" />
-    <Compile Include="Transport\Controllers\*.fs" />
-    <Compile Include="Extensions.fs" />
+    <Compile Include="Service\Commands\*.fs" />
+    <Compile Include="Service\Commands\Handlers\*.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
@@ -24,18 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AnalyticsService.Database\AnalyticsService.Database.fsproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Transport\Contracts\Requests\BatchPeriodStatRequest.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Transport\Contracts\Responses\StatisticResponse.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Transport\Validation\BatchPeriodStatRequestValidator.fs" />
   </ItemGroup>
 
 </Project>

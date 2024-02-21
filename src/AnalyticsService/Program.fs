@@ -1,11 +1,10 @@
-namespace AnalyticsService.Web.Api
+namespace AnalyticsService
 
 #nowarn "20"
 open System
 open System.Data
 open AnalyticsService.Database.Api
 open AnalyticsService.Database.Api.Extensions
-open AnalyticsService.Web.Api.Extensions
 open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
@@ -26,13 +25,8 @@ module Program =
         builder.Services.AddHealthChecks()
         builder.Services.AddRepositories()
         builder.Services.AddTransient<IDbConnection>(
-            fun i -> Connector.GetConnection(connectionString)
+            fun _ -> Connector.GetConnection(connectionString)
         )
-        builder.Services
-            .AddMediatR(fun cfg ->
-                cfg.RegisterServicesFromAssemblyContaining<Transport.Controllers.DaprController>() |> ignore
-            )
-            .AddValidators()
 
         let app = builder.Build()
 

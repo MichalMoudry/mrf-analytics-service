@@ -1,4 +1,4 @@
-namespace AnalyticsService.Web.Api.Service.Model
+namespace AnalyticsService.Service.Model
 
 /// A record encapsulating a cloud event.
 type CloudEvent<'T> = {
