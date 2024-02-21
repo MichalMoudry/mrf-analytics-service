@@ -1,6 +1,0 @@
-BEGIN;
-
-DROP TABLE "BatchStats";
-DROP TABLE "DLQ";
-
-COMMIT;
