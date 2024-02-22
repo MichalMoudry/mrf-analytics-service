@@ -5,7 +5,7 @@ open MediatR
 open System
 
 /// A query for obtaining generic stats for a specific time period.
-type GetStatsForPeriodQuery(
+type internal GetStatsForPeriodQuery(
     workflowId: Guid,
     startDate: DateTimeOffset,
     period: TimeSpan

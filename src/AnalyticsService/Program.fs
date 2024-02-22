@@ -5,13 +5,12 @@ open System
 open System.Data
 open AnalyticsService.Database.Api
 open AnalyticsService.Database.Api.Extensions
+open AnalyticsService.Util.Extensions
 open Microsoft.AspNetCore.Builder
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 
 module Program =
-    let exitCode = 0
-
     [<EntryPoint>]
     let main args =
         printfn "Hello from analytics service! ʕ•ᴥ•ʔ"
@@ -21,20 +20,23 @@ module Program =
             | true -> builder.Configuration["DbConnection"]
             | false -> Environment.GetEnvironmentVariable("DB_CONN")
 
+        builder.Services.AddControllers()
         builder.Services.AddSwaggerGen()
         builder.Services.AddHealthChecks()
         builder.Services.AddRepositories()
+        builder.Services.AddValidators()
         builder.Services.AddTransient<IDbConnection>(
-            fun _ -> Connector.GetConnection(connectionString)
+            fun i -> Connector.GetConnection(connectionString)
         )
 
         let app = builder.Build()
 
+        app.MapControllers()
+        app.MapSubscribeHandler()
         app.UseSwagger()
         if app.Environment.IsDevelopment() then app.UseSwaggerUI() |> ignore
-        app.MapSubscribeHandler()
         app.UseHealthChecks("/healthz")
 
         app.Run()
 
-        exitCode
+        0 // exitCode

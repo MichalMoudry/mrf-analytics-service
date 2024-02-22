@@ -13,6 +13,7 @@
     <Compile Include="Model\Domain\*.fs" />
     <Compile Include="Model\Dto\*.fs" />
     <Compile Include="Model\DatabaseCtx.fs" />
+    <Compile Include="Model\Constructors.fs" />
     <Compile Include="Repositories\I*.fs" />
     <Compile Include="Repositories\BatchStatRepository.fs" />
     <Compile Include="Repositories\DlqRepository.fs" />

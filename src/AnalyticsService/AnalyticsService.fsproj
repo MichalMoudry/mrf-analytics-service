@@ -6,8 +6,18 @@
 
   <ItemGroup>
     <Compile Include="Service\Model\*.fs" />
+    <Compile Include="Service\Queries\*.fs" />
+    <Compile Include="Service\Queries\Handlers\*.fs" />
     <Compile Include="Service\Commands\*.fs" />
     <Compile Include="Service\Commands\Handlers\*.fs" />
+
+    <Compile Include="Transport\Contracts\Requests\*.fs" />
+    <Compile Include="Transport\Contracts\Responses\*.fs" />
+    <Compile Include="Transport\Validation\*.fs" />
+    <Compile Include="Transport\Controllers\*.fs" />
+
+    <Compile Include="Util\Extensions.fs" />
+
     <Compile Include="Program.fs" />
   </ItemGroup>
 

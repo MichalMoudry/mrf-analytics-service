@@ -6,5 +6,5 @@ open System
 
 /// A query for obtaining generic stats about all document batches.
 type internal GetGenericStatsQuery(workflowId: Guid) =
-    interface IRequest<GeneralBatchStat>
+    interface IRequest<GeneralBatchStats>
     member this.WorkflowId with get() = workflowId
